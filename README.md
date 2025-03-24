@@ -1,2 +1,13 @@
-# devathon-9-frontend
-Devathon 9th Edition Repository
+## Frontend
+
+Clone repository into local machine
+
+Install dependencies:
+```
+  pnpm install
+```
+
+Run development server:
+```
+  pnpm run dev
+```
