@@ -1,7 +1,7 @@
 .main-page {
-    padding: 80px 5%;
+    padding: 115px 5%;
     text-align: center;
-    background: url('../assets/images/main_background.webp'); 
+    background: url('/images/main_background.webp'); 
     min-height: 100vh;
     width: 100%;
     background-size: cover;
@@ -9,8 +9,9 @@
     background-position: center;  
     background-attachment: fixed;
     color: white;
-    &__title {
+    &__player-name, &__pick-house {
         margin-top: unset;
+        text-shadow: 4px 10px 8px rgba(0, 0, 0, 1);
     }
     &__name-input {
         padding: 12px;
@@ -20,8 +21,24 @@
         background-color: #ADADADB2;
         color: black;
         font-size: 24px;
+        margin-bottom: 50px;
         &::placeholder {
             color: rgb(0, 0, 0, 0.5);
+        }
+    }
+    &__houses {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        place-items: center;
+        &__logo {
+            width: 150px;
+            height: 200px;
+            object-fit: cover;
+            padding: 10px;
+            &--hufflepuff {
+                width: 126px;
+                height: 195px;
+            }
         }
     }
 }
