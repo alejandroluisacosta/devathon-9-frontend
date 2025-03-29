@@ -1,5 +1,5 @@
 .main-page {
-    padding: 115px 5%;
+    padding: 60px 5%;
     text-align: center;
     background: url('/images/main_background.webp'); 
     min-height: 100vh;
@@ -9,6 +9,12 @@
     background-position: center;  
     background-attachment: fixed;
     color: white;
+    &__title {
+        font-size: 40px;
+        text-shadow: 4px 10px 8px rgba(0, 0, 0, 1);
+        margin-bottom: 40px;
+        font-family: 'Aclonica', 'sans-serif';
+    }
     &__player-name, &__pick-house {
         margin-top: unset;
         text-shadow: 4px 10px 8px rgba(0, 0, 0, 1);
