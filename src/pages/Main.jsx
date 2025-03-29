@@ -3,8 +3,8 @@ import './Main.scss';
 export const Main = () => {
   return (
     <div className="main-page">
-      <h1>Main Page</h1>
-      <p>This is the main page of the application.</p>
+      <h1 className='main-page__title'>Player's Name</h1>
+      <input type="text" className='main-page__name-input' placeholder='Dumbledore' />
     </div>
   );
 }

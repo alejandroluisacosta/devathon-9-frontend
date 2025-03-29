@@ -1,12 +1,27 @@
 .main-page {
-    background: url('../assets/main_background.webp'); 
+    padding: 80px 5%;
+    text-align: center;
+    background: url('../assets/images/main_background.webp'); 
     min-height: 100vh;
     width: 100%;
     background-size: cover;
     background-repeat: no-repeat;  
     background-position: center;  
     background-attachment: fixed;
-    h1 {
+    color: white;
+    &__title {
         margin-top: unset;
+    }
+    &__name-input {
+        padding: 12px;
+        width: 80%;
+        border-radius: 8px;
+        border: 1px solid #7F0909;
+        background-color: #ADADADB2;
+        color: black;
+        font-size: 24px;
+        &::placeholder {
+            color: rgb(0, 0, 0, 0.5);
+        }
     }
 }
