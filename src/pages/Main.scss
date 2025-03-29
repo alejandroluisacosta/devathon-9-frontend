@@ -52,3 +52,31 @@
         transition: all 0.3s ease-in-out;
     }
 }
+
+@media only screen and (min-width: 1000px) {
+    .main-page {
+        &__name-input {
+            width: 50%;
+        }
+        &__houses {
+            display: flex;
+            justify-content: space-around;
+            width: 55%;
+            margin: 0 auto 40px;
+            &__logo {
+                transition: all 0.5s ease-in-out;
+                &:hover {
+                    transform: scale(1.25);
+                    transition: all 0.5s ease-in-out;
+                }
+            }
+        }
+        &__button {
+            transition: all 0.5s ease-in-out;
+            &:hover {
+                transform: scale(1.25);
+                transition: all 0.5s ease-in-out;
+            }
+        }
+    }
+}
