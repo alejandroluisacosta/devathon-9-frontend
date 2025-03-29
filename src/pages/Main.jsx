@@ -12,6 +12,7 @@ export const Main = () => {
         <img className='main-page__houses__logo main-page__houses__logo--hufflepuff' src="/images/Hufflepuff.webp" alt="Huffepuff" />
         <img className='main-page__houses__logo' src="/images/Ravenclaw.webp" alt="Ravenclaw" />
       </div>
+      <button className='main-page__button'>Play</button>
     </div>
   );
 }

@@ -41,4 +41,14 @@
             }
         }
     }
+    &__button {
+        background-color: #BB4C48;
+        color: white;
+        padding: 12px 24px;
+        border-radius: 8px;
+        border: none;
+        font-size: 24px;
+        cursor: pointer;
+        transition: all 0.3s ease-in-out;
+    }
 }
