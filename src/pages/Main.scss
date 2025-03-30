@@ -17,6 +17,7 @@
     }
     &__player-name, &__pick-house {
         margin-top: unset;
+        margin-bottom: 20px;
         text-shadow: 4px 10px 8px rgba(0, 0, 0, 1);
     }
     &__name-input {
@@ -27,7 +28,7 @@
         background-color: #ADADADB2;
         color: black;
         font-size: 24px;
-        margin-bottom: 50px;
+        margin-bottom: 30px;
         &::placeholder {
             color: rgb(0, 0, 0, 0.5);
         }
@@ -36,15 +37,24 @@
         display: grid;
         grid-template-columns: repeat(2, 1fr);
         place-items: center;
+        row-gap: 20px;
+        margin-bottom: 20px;
         &__logo {
-            width: 150px;
-            height: 200px;
+            width: 140px;
+            height: 160px;
             object-fit: cover;
-            padding: 10px;
             &--hufflepuff {
-                width: 126px;
-                height: 195px;
+                width: 145px;
+                height: 155px;
             }
+            &--slytherin {
+                width: 145px;
+                height: 155px;
+            }
+        }
+        &__name {
+            font-size: 18px;
+            text-shadow: 4px 10px 8px rgba(0, 0, 0, 1);
         }
     }
     &__button {
@@ -69,7 +79,7 @@
             justify-content: space-around;
             width: 55%;
             margin: 0 auto 40px;
-            &__logo {
+            &__house {
                 transition: all 0.5s ease-in-out;
                 &:hover {
                     transform: scale(1.25);

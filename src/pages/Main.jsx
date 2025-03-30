@@ -8,10 +8,22 @@ export const Main = () => {
       <input type="text" className='main-page__name-input' placeholder='Dumbledore' />
       <h2 className="main-page__pick-house">Pick your house</h2>
       <div className="main-page__houses">
-        <img className='main-page__houses__logo' src="/images/Gryffindor.webp" alt="Gryffindor" />
-        <img className='main-page__houses__logo' src="/images/Slytherin.webp" alt="Slytherin" />
-        <img className='main-page__houses__logo main-page__houses__logo--hufflepuff' src="/images/Hufflepuff.webp" alt="Huffepuff" />
-        <img className='main-page__houses__logo' src="/images/Ravenclaw.webp" alt="Ravenclaw" />
+        <div className="main-page__houses__house">
+          <img className="main-page__houses__logo" src="/images/Gryffindor.webp" alt="Gryffindor" />
+          <h3 className="main-page__houses__name">Gryffindor</h3>
+        </div>
+        <div className="main-page__houses__house">
+          <img className="main-page__houses__logo main-page__houses__logo--slytherin" src="/images/Slytherin.webp" alt="Slytherin" />
+          <h3 className="main-page__houses__name">Slytherin</h3>
+        </div>
+        <div className="main-page__houses__house">
+          <img className="main-page__houses__logo main-page__houses__logo--hufflepuff" src="/images/Hufflepuff.webp" alt="Hufflepuff" />
+          <h3 className="main-page__houses__name">Hufflepuff</h3>
+        </div>
+        <div className="main-page__houses__house">
+          <img className="main-page__houses__logo main-page__houses__logo--ravenclaw" src="/images/Ravenclaw.webp" alt="Ravenclaw" />
+          <h3 className="main-page__houses__name">Ravenclaw</h3>
+        </div>
       </div>
       <button className='main-page__button'>Play</button>
     </div>
