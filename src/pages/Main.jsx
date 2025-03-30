@@ -1,5 +1,6 @@
-import './Main.scss';
 import { useState, useEffect } from 'react';
+import { sendPlayerDataToServer } from '../utils/sendPlayerDataToServer';
+import './Main.scss';
 
 export const Main = () => {
   const [playerName, setPlayerName] = useState("");
@@ -20,6 +21,7 @@ export const Main = () => {
   
   const handleSubmit = () => {
     const playerData = { name: playerName, house: selectedHouse };
+    sendPlayerDataToServer(playerData);
     localStorage.setItem("playerInfo", JSON.stringify(playerData));
     
   };
