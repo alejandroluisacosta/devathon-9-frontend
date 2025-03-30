@@ -36,6 +36,11 @@ h1, h2, h3, h4, h5, h6 {
     transform: translateY(10px);
     animation: fadeIn 0.5s ease forwards;
   }
+
+  .relative-element {
+    position: relative;
+    z-index: 1;
+  }
   
   @keyframes fadeIn {
     to {

@@ -34,14 +34,14 @@ export const Main = () => {
   };
 
   return (
-    <div className="main-page">
-      <h1 className="main-page__title">Expelliarmicus</h1>
+    <div className={`main-page ${isPlayerInfoLoaded ? "with-background" : ""}`}>
+      <h1 className="main-page__title relative-element">Expelliarmicus</h1>
       {isPlayerInfoLoaded ? 
       <>
-        <PlayerBasicInfo playerName={playerName} selectedHouse={selectedHouse} />
+        <PlayerBasicInfo playerName={playerName} selectedHouse={selectedHouse} className="fade-in relative-element"/>
       </>
       :
-      <div className={`main-page__form ${isPlayerInfoLoaded ? 'fade-out' : 'fade-in'}`}>
+      <div className={"main-page__form relative-element"}>
         <input 
           type="text" 
           className="main-page__name-input" 
@@ -76,7 +76,7 @@ export const Main = () => {
           ))}
         </div>
       </div>}
-      <button className="main-page__button" onClick={isPlayerInfoLoaded ? handlePlay : handleConfirm}>
+      <button className="main-page__button relative-element" onClick={isPlayerInfoLoaded ? handlePlay : handleConfirm}>
         {isPlayerInfoLoaded ? 'Jugar' : 'Confirmar'}
       </button>
     </div>
