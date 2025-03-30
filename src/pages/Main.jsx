@@ -41,7 +41,7 @@ export const Main = () => {
         <PlayerBasicInfo playerName={playerName} selectedHouse={selectedHouse} />
       </>
       :
-      <div className={`main-page__form ${isPlayerInfoLoaded ? 'fade-out' : ''}`}>
+      <div className={`main-page__form ${isPlayerInfoLoaded ? 'fade-out' : 'fade-in'}`}>
         <input 
           type="text" 
           className="main-page__name-input" 
@@ -57,7 +57,14 @@ export const Main = () => {
               key={house} 
               className="main-page__houses__house"
               onClick={() => handleHouseSelect(house)}
-              style={{ backgroundColor: selectedHouse === house ? 'lightgrey' : 'transparent' }}
+              style={{ 
+                boxShadow: selectedHouse === house ? '0 4px 40px rgba(0, 0, 0, 0.8)' : 'none',
+                backgroundColor: selectedHouse === house ? 'rgba(0, 0, 0, 0.5)' : 'transparent',
+                border: selectedHouse === house ? '1px solid rgb(135, 135, 135)' : 'none',
+                transform: selectedHouse === house ? 'scale(1.05)' : 'scale(1)',
+                transition: 'all 0.3s ease-in-out'
+              }}
+              
             >
               <img 
                 className={`main-page__houses__logo main-page__houses__logo--${house.toLowerCase()}`} 
