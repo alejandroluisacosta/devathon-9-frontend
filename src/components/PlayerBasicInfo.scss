@@ -1,0 +1,20 @@
+.main-page {
+    &__player-name {
+        font-size: 36px;
+        margin-top: unset;
+        margin-bottom: 20px;
+        text-shadow: 4px 10px 8px rgba(0, 0, 0, 1);
+    }
+    &__house {
+        &__logo {
+            width: 260px;
+            height: 320px;
+            margin-bottom: 5px;
+        }
+        &__name {
+            font-size: 24px;
+            text-shadow: 4px 10px 8px rgba(0, 0, 0, 1);
+            margin-bottom: 30px;
+        }
+    }
+}

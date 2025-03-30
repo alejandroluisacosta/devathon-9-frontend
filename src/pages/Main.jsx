@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { sendPlayerDataToServer } from '../utils/sendPlayerDataToServer';
-import { houseTraits } from '../constants/houseTraits';
 import './Main.scss';
+import { PlayerBasicInfo } from '../components/PlayerBasicInfo';
 
 export const Main = () => {
   const [playerName, setPlayerName] = useState("");
@@ -38,15 +38,10 @@ export const Main = () => {
       <h1 className="main-page__title">Expelliarmicus</h1>
       {isPlayerInfoLoaded ? 
       <>
-        <h1>{playerName}, el {houseTraits[selectedHouse]}</h1>
-        <div className="main-page__house">
-          <img className={`main-page__houses__logo main-page__houses__logo--${selectedHouse.toLowerCase()}`} src={`/images/${selectedHouse}.webp`} alt={selectedHouse} />
-          <h3 className="main-page__houses__name">{selectedHouse}</h3>
-        </div>
+        <PlayerBasicInfo playerName={playerName} selectedHouse={selectedHouse} />
       </>
       :
-      <>
-        
+      <div className={`main-page__form ${isPlayerInfoLoaded ? 'fade-out' : ''}`}>
         <input 
           type="text" 
           className="main-page__name-input" 
@@ -62,7 +57,7 @@ export const Main = () => {
               key={house} 
               className="main-page__houses__house"
               onClick={() => handleHouseSelect(house)}
-              style={{ backgroundColor: selectedHouse === house ? 'lightgrey' : 'transparent' }}  // Optional style for selection
+              style={{ backgroundColor: selectedHouse === house ? 'lightgrey' : 'transparent' }}
             >
               <img 
                 className={`main-page__houses__logo main-page__houses__logo--${house.toLowerCase()}`} 
@@ -73,8 +68,7 @@ export const Main = () => {
             </div>
           ))}
         </div>
-        
-      </>}
+      </div>}
       <button className="main-page__button" onClick={isPlayerInfoLoaded ? handlePlay : handleConfirm}>
         {isPlayerInfoLoaded ? 'Jugar' : 'Confirmar'}
       </button>
