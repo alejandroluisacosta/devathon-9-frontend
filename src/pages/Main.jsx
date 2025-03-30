@@ -1,9 +1,18 @@
 import './Main.scss';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 
 export const Main = () => {
-  const [playerName, setPlayerName] = useState('');
-  const [selectedHouse, setSelectedHouse] = useState('');
+  const [playerName, setPlayerName] = useState("");
+  const [selectedHouse, setSelectedHouse] = useState("");
+
+  useEffect(() => {
+    const storedPlayer = localStorage.getItem("playerInfo");
+    if (storedPlayer) {
+      const { name, house } = JSON.parse(storedPlayer);
+      setPlayerName(name);
+      setSelectedHouse(house);
+    }
+  }, []);
   
   const handleNameChange = (e) => setPlayerName(e.target.value);
   
@@ -14,7 +23,7 @@ export const Main = () => {
     localStorage.setItem("playerInfo", JSON.stringify(playerData));
     
   };
-
+  console.log(`Player Name: ${playerName}`);
   return (
     <div className="main-page">
       <h1 className="main-page__title">Expelliarmicus</h1>
