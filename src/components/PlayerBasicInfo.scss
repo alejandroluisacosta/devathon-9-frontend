@@ -1,0 +1,35 @@
+.main-page {
+    &::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: var(--house-color);
+        z-index: 0;
+        opacity: 0;
+        transition: opacity 0.8s ease-in-out;
+    }
+    &.with-background::before {
+        opacity: 1;
+    }
+    &__player-name {
+        font-size: 36px;
+        margin-top: unset;
+        margin-bottom: 20px;
+        text-shadow: 4px 10px 8px rgba(0, 0, 0, 1);
+    }
+    &__house {
+        &__logo {
+            width: 260px;
+            height: 320px;
+            margin-bottom: 5px;
+        }
+        &__name {
+            font-size: 24px;
+            text-shadow: 4px 10px 8px rgba(0, 0, 0, 1);
+            margin-bottom: 30px;
+        }
+    }
+}
