@@ -1,6 +1,7 @@
 import './App.css';
 import { Navigate, Route, Routes } from 'react-router-dom';
 import { Main } from './pages/Main';
+import { DuelRoom } from './pages/duelRoom/DuelRoom';
 
 
 function App() {
@@ -8,10 +9,11 @@ function App() {
     <>
         <Routes>
           <Route path="/" element={<Main />} />
-          {/* <Route path="/mode-selection" element={<ModeSelection />} />
+          <Route path="/duel-room" element={<DuelRoom />} />
+          {/* 
           <Route path="/rooms" element={<Rooms />} />
           <Route path="/create-room" element={<CreateRoom />} />
-          <Route path="/duel-room" element={<Game />} /> */}
+           */}
         </Routes>
     </>
   );
