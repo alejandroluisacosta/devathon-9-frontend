@@ -54,7 +54,6 @@ const StompContext = createContext<StompContextProps>({
 });
 
 export const StompProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
-
   const clientRef = useRef<Client | null>(null);
   const [connected, setConnected] = useState(false);
 
@@ -65,12 +64,11 @@ export const StompProvider: React.FC<{ children: React.ReactNode }> = ({ childre
       heartbeatIncoming: 10000,
       heartbeatOutgoing: 10000,
 
-      debug: (str) => console.log(`[STOMP] ${str}`),
+      debug: str => console.log(`[STOMP] ${str}`),
 
       onConnect: () => setConnected(true),
       onDisconnect: () => setConnected(false),
-      onStompError: (frame) => console.error('STOMP error', frame.body),
-
+      onStompError: frame => console.error('STOMP error', frame.body),
     });
 
     client.activate();
@@ -91,7 +89,10 @@ export const StompProvider: React.FC<{ children: React.ReactNode }> = ({ childre
     });
   };
 
-  const subscribe = (destination: string, callback: (msg: IMessage) => void): StompSubscription | null => {
+  const subscribe = (
+    destination: string,
+    callback: (msg: IMessage) => void
+  ): StompSubscription | null => {
     if (!clientRef.current || !connected) return null;
     return clientRef.current.subscribe(destination, callback);
   };
@@ -101,7 +102,6 @@ export const StompProvider: React.FC<{ children: React.ReactNode }> = ({ childre
       {children}
     </StompContext.Provider>
   );
-
 };
 
 export const useStompContext = () => useContext(StompContext);
@@ -113,9 +113,9 @@ export const useStompContext = () => useContext(StompContext);
 import { useStompContext } from './StompProvider';
 
 export const useStomp = () => {
-    const context = useStompContext();
-    if (!context) throw new Error('useStomp must be used within a StompProvider');
-    return context;
+  const context = useStompContext();
+  if (!context) throw new Error('useStomp must be used within a StompProvider');
+  return context;
 };
 ```
 
@@ -129,7 +129,7 @@ const Notificaciones = () => {
   const { subscribe } = useStomp();
 
   useEffect(() => {
-    const sub = subscribe('/user/queue/notificaciones', (msg) => {
+    const sub = subscribe('/user/queue/notificaciones', msg => {
       const data = JSON.parse(msg.body);
       console.log('🔔 Notificación:', data);
     });
@@ -189,7 +189,6 @@ root.render(
   </React.StrictMode>
 );
 ```
-
 
 ## 🧠 Recomendaciones finales
 

@@ -59,46 +59,45 @@ npm install sockjs-client
 Para establecer una conexión básica con un broker STOMP usando WebSockets, puedes crear una instancia de Client y configurar parámetros clave como la URL del broker, encabezados de conexión, reconexión automática, y heartbeats para mantener viva la conexión.
 
 ```js
-  import { Client } from '@stomp/stompjs';
+import { Client } from '@stomp/stompjs';
 
-  const client = new Client({
+const client = new Client({
+  //🔌 URL del broker STOMP al que se conecta el cliente, usando WebSockets
+  brokerURL: 'ws://localhost:15674/ws',
 
-    //🔌 URL del broker STOMP al que se conecta el cliente, usando WebSockets
-    brokerURL: 'ws://localhost:15674/ws',
+  //🐞 Función de depuración: muestra en consola los logs internos del cliente STOMP.
+  // Útil para ver la conexión, suscripciones y errores.
+  debug: str => console.log(`[STOMP] ${str}`),
 
-    //🐞 Función de depuración: muestra en consola los logs internos del cliente STOMP. 
-    // Útil para ver la conexión, suscripciones y errores.
-    debug: (str) => console.log(`[STOMP] ${str}`),
+  // 🔁 Reconexión automática: espera 5 segundos antes de intentar reconectarse si la conexión se pierde.
+  reconnectDelay: 5000,
 
-    // 🔁 Reconexión automática: espera 5 segundos antes de intentar reconectarse si la conexión se pierde.
-    reconnectDelay: 5000,
+  // ❤️‍🔥 Heartbeats: el cliente espera y envía un “pulso” cada 10 segundos
+  // Mantiene viva la conexión y detectar si el servidor cae.
+  heartbeatIncoming: 10000,
+  heartbeatOutgoing: 10000,
 
-    // ❤️‍🔥 Heartbeats: el cliente espera y envía un “pulso” cada 10 segundos 
-    // Mantiene viva la conexión y detectar si el servidor cae.
-    heartbeatIncoming: 10000,
-    heartbeatOutgoing: 10000,
+  //🔗 onConnect: se ejecuta cuando el cliente se conecta
+  // El objeto frame contiene información de los headers del servidor.
+  // Útil para confirmar la conexión o iniciar suscripciones.
+  onConnect: frame => {
+    console.log('✅ Conectado al broker:', frame.headers);
+  },
 
-    //🔗 onConnect: se ejecuta cuando el cliente se conecta
-    // El objeto frame contiene información de los headers del servidor. 
-    // Útil para confirmar la conexión o iniciar suscripciones.
-    onConnect: (frame) => {
-      console.log('✅ Conectado al broker:', frame.headers);
-    },
+  //🛑 onStompError: se dispara cuando el broker responde con un error STOMP
+  // (por ejemplo, si no reconoce una ruta o hay un fallo en el backend).
+  // frame.body suele incluir detalles adicionales útiles para depurar.
+  onStompError: frame => {
+    console.error('❌ STOMP error:', frame.headers['message']);
+    console.error('Detalles:', frame.body);
+  },
 
-    //🛑 onStompError: se dispara cuando el broker responde con un error STOMP 
-    // (por ejemplo, si no reconoce una ruta o hay un fallo en el backend). 
-    // frame.body suele incluir detalles adicionales útiles para depurar.
-    onStompError: (frame) => {
-      console.error('❌ STOMP error:', frame.headers['message']);
-      console.error('Detalles:', frame.body);
-    },
-
-    //📴 onDisconnect: se ejecuta cuando el cliente se desconecta. 
-    // Útil para limpiar el estado de la aplicación o mostrar alertas al usuario.
-    onDisconnect: () => {
-      console.warn('🔌 Cliente desconectado.');
-    },
-  });
+  //📴 onDisconnect: se ejecuta cuando el cliente se desconecta.
+  // Útil para limpiar el estado de la aplicación o mostrar alertas al usuario.
+  onDisconnect: () => {
+    console.warn('🔌 Cliente desconectado.');
+  },
+});
 ```
 
 ## Activar y desactivar el cliente STOMP
@@ -144,13 +143,13 @@ client.deactivate();
 ### Ejemplo típico
 
 ```js
-  // Activar al iniciar
-  client.activate();
+// Activar al iniciar
+client.activate();
 
-  // Desactivar antes de cerrar o limpiar
-  window.addEventListener('beforeunload', () => {
-    client.deactivate();
-  });
+// Desactivar antes de cerrar o limpiar
+window.addEventListener('beforeunload', () => {
+  client.deactivate();
+});
 ```
 
 ## Suscripción a eventos
@@ -171,7 +170,7 @@ STOMP.js permite suscribirse a distintos destinos que representan canales de com
 
 ```ts
 client.onConnect = () => {
-  const subscription = client.subscribe('/topic/general', (message) => {
+  const subscription = client.subscribe('/topic/general', message => {
     const contenido = JSON.parse(message.body);
     console.log('Mensaje recibido en canal público:', contenido);
   });
@@ -182,7 +181,7 @@ client.onConnect = () => {
 
 ```ts
 client.onConnect = () => {
-  const suscripcionPrivada = client.subscribe('/user/queue/notificaciones', (message) => {
+  const suscripcionPrivada = client.subscribe('/user/queue/notificaciones', message => {
     const notificacion = JSON.parse(message.body);
     console.log('Notificación privada:', notificacion);
   });
@@ -191,10 +190,8 @@ client.onConnect = () => {
 
 ### Ejemplo: cancelación de una suscripción
 
-
-
 ```ts
-const subscription = client.subscribe('/topic/eventos', (msg) => {
+const subscription = client.subscribe('/topic/eventos', msg => {
   // procesar mensaje
 });
 
@@ -217,7 +214,7 @@ El método .unsubscribe() cancela una suscripción activa que has creado previam
 - Es útil para evitar fugas de memoria o recibir mensajes innecesarios.
 
 ```ts
-const subscription = client.subscribe('/topic/general', (msg) => {
+const subscription = client.subscribe('/topic/general', msg => {
   // manejar mensaje
 });
 ```
@@ -252,10 +249,10 @@ El método client.publish() se utiliza para enviar mensajes al servidor STOMP a 
 ```ts
 client.publish({
   destination: '/app/register-user',
-  body: JSON.stringify({ 
-      name: 'manuel', 
-      lastname: 'entrena', 
-    }),
+  body: JSON.stringify({
+    name: 'manuel',
+    lastname: 'entrena',
+  }),
 });
 ```
 
@@ -304,7 +301,7 @@ reconnectDelay: 10000, // 10 segundos
 Para gestionar errores del broker:
 
 ```ts
-client.onStompError = (frame) => {
+client.onStompError = frame => {
   console.error('STOMP error:', frame.headers['message']);
   console.error('Detalles:', frame.body);
 };
@@ -315,7 +312,7 @@ client.onStompError = (frame) => {
 Errores WebSocket:
 
 ```ts
-client.onWebSocketError = (event) => {
+client.onWebSocketError = event => {
   console.error('WebSocket error:', event);
 };
 ```
@@ -323,7 +320,7 @@ client.onWebSocketError = (event) => {
 Errores STOMP:
 
 ```ts
-client.onStompError = (frame) => {
+client.onStompError = frame => {
   console.error('STOMP error:', frame.headers['message']);
   console.error('Detalles:', frame.body);
 };
@@ -339,7 +336,7 @@ const client = new Client({
   brokerURL: 'ws://localhost:15674/ws',
 
   // Logs útiles para desarrollo
-  debug: (str) => console.log(`[STOMP DEBUG] ${str}`),
+  debug: str => console.log(`[STOMP DEBUG] ${str}`),
 
   // Reintento automático cada 5 segundos si se pierde la conexión
   reconnectDelay: 5000,
@@ -349,17 +346,17 @@ const client = new Client({
   heartbeatOutgoing: 10000,
 
   // Conexión exitosa
-  onConnect: (frame) => {
+  onConnect: frame => {
     console.log('✅ Conectado al broker:', frame.headers);
 
     // 🧭 Suscripción a canal público
-    const publicSub = client.subscribe('/topic/general', (message) => {
+    const publicSub = client.subscribe('/topic/general', message => {
       const data = JSON.parse(message.body);
       console.log('📣 Mensaje público:', data);
     });
 
     // 🔒 Suscripción a cola privada de usuario
-    const privateSub = client.subscribe('/user/queue/notifications', (message) => {
+    const privateSub = client.subscribe('/user/queue/notifications', message => {
       const notif = JSON.parse(message.body);
       console.log('🔔 Notificación privada:', notif);
     });
@@ -392,13 +389,13 @@ const client = new Client({
   },
 
   // Error STOMP (protocolo)
-  onStompError: (frame) => {
+  onStompError: frame => {
     console.error('❌ STOMP error:', frame.headers['message']);
     console.error('Detalles del error:', frame.body);
   },
 
   // Error WebSocket (conexión física)
-  onWebSocketError: (event) => {
+  onWebSocketError: event => {
     console.error('🚨 Error WebSocket:', event);
   },
 
