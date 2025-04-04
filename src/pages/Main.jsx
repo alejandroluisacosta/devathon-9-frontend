@@ -104,6 +104,7 @@ export const Main = () => {
       <button
         className='main-page__button relative-element'
         onClick={isPlayerInfoLoaded ? handlePlay : handleConfirm}
+        disabled={isPlayerInfoLoaded ? false : playerName.length < 3 || selectedHouse === ''}
       >
         {isPlayerInfoLoaded ? 'Jugar' : 'Confirmar'}
       </button>
