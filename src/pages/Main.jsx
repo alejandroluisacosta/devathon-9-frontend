@@ -65,6 +65,7 @@ export const Main = () => {
             value={playerName}
             onChange={handleNameChange}
             onBlur={handleBlur}
+            minLength={3}
             maxLength={20}
           />
 
