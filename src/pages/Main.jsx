@@ -8,7 +8,7 @@ export const Main = () => {
   const [selectedHouse, setSelectedHouse] = useState('');
   const [isPlayerInfoLoaded, setIsPlayerInfoLoaded] = useState(false);
 
-  const [error, setError] = useState("");
+  const [error, setError] = useState('');
 
   useEffect(() => {
     const storedPlayer = localStorage.getItem('playerInfo');
@@ -24,19 +24,19 @@ export const Main = () => {
     /*setPlayerName(e.target.value);*/
     const value = e.target.value.replace(/[^a-zA-Z]/g, '');
     setPlayerName(value);
-    setError(""); 
+    setError('');
     // Clear error when user types
-  }
+  };
 
   const handleHouseSelect = house => setSelectedHouse(house);
 
   const handlePlay = () => {};
 
   const handleBlur = () => {
-    if (playerName.trim() === "") {
-      setError("The field cannot be empty");
+    if (playerName.trim() === '') {
+      setError('The field cannot be empty');
     }
-  }
+  };
 
   const handleConfirm = () => {
     const playerData = { name: playerName, house: selectedHouse };
