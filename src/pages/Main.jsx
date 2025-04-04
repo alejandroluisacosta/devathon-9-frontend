@@ -8,21 +8,35 @@ export const Main = () => {
   const [selectedHouse, setSelectedHouse] = useState('');
   const [isPlayerInfoLoaded, setIsPlayerInfoLoaded] = useState(false);
 
+  const [error, setError] = useState("");
+
   useEffect(() => {
     const storedPlayer = localStorage.getItem('playerInfo');
     if (storedPlayer) {
       const { name, house } = JSON.parse(storedPlayer);
       setPlayerName(name);
       setSelectedHouse(house);
-      setIsPlayerInfoLoaded(true);
+      setIsPlayerInfoLoaded(false);
     }
   }, []);
 
-  const handleNameChange = e => setPlayerName(e.target.value);
+  const handleNameChange = e => {
+    /*setPlayerName(e.target.value);*/
+    const value = e.target.value.replace(/[^a-zA-Z]/g, '');
+    setPlayerName(value);
+    setError(""); 
+    // Clear error when user types
+  }
 
   const handleHouseSelect = house => setSelectedHouse(house);
 
   const handlePlay = () => {};
+
+  const handleBlur = () => {
+    if (playerName.trim() === "") {
+      setError("The field cannot be empty");
+    }
+  }
 
   const handleConfirm = () => {
     const playerData = { name: playerName, house: selectedHouse };
@@ -50,7 +64,11 @@ export const Main = () => {
             placeholder='Dumbledore'
             value={playerName}
             onChange={handleNameChange}
+            onBlur={handleBlur}
+            maxLength={20}
           />
+
+          {error && <div style={{ color: 'red' }}>{error}</div>}
 
           <h2 className='main-page__pick-house'>Pick your house</h2>
           <div className='main-page__houses'>
