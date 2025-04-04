@@ -36,9 +36,9 @@ export const Main = () => {
     if (playerName.trim() === '') {
       setError('The field cannot be empty');
     } else if (playerName.length < 3) {
-      setError("The value must be at least 3 characters long");
+      setError('The value must be at least 3 characters long');
     } else {
-      setError(""); // Sin errores si la validación pasa
+      setError(''); // Sin errores si la validación pasa
     }
   };
 
