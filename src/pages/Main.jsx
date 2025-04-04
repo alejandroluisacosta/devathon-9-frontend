@@ -4,12 +4,14 @@ import './Main.scss';
 import { PlayerBasicInfo } from '../components/PlayerBasicInfo';
 
 export const Main = () => {
+
   const [playerName, setPlayerName] = useState("");
   const [selectedHouse, setSelectedHouse] = useState("");
+
   const [isPlayerInfoLoaded, setIsPlayerInfoLoaded] = useState(false);
 
   useEffect(() => {
-    const storedPlayer = localStorage.getItem("playerInfo");
+    const storedPlayer = localStorage.getItem('playerInfo');
     if (storedPlayer) {
       const { name, house } = JSON.parse(storedPlayer);
       setPlayerName(name);
@@ -30,10 +32,12 @@ export const Main = () => {
     const playerData = { name: playerName, house: selectedHouse };
     sendPlayerDataToServer(playerData);
     localStorage.setItem("playerInfo", JSON.stringify(playerData));
+
     setIsPlayerInfoLoaded(true);
   };
 
   return (
+
     <div className={`main-page ${isPlayerInfoLoaded ? "with-background" : ""}`}>
       <h1 className="main-page__title relative-element">Expelliarmicus</h1>
       {isPlayerInfoLoaded ? 
@@ -77,6 +81,7 @@ export const Main = () => {
         </div>
       </div>}
       <button className="main-page__button relative-element" onClick={isPlayerInfoLoaded ? handlePlay : handleConfirm}>
+
         {isPlayerInfoLoaded ? 'Jugar' : 'Confirmar'}
       </button>
     </div>

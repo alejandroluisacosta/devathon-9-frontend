@@ -3,6 +3,7 @@ import './PlayerBasicInfo.scss';
 import { houseColors } from '../constants/houseColors';
 
 export const PlayerBasicInfo = ({ playerName, selectedHouse, className }) => {
+
     const element = document.querySelector('.main-page');
     element.style.setProperty('--house-color', houseColors[selectedHouse]);
     return (
@@ -15,3 +16,4 @@ export const PlayerBasicInfo = ({ playerName, selectedHouse, className }) => {
         </div>
     )
 }
+

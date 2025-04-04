@@ -1,4 +1,5 @@
 .main-page {
+
     &::before {
         content: "";
         position: absolute;
@@ -33,3 +34,4 @@
         }
     }
 }
+
