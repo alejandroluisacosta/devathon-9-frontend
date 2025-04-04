@@ -79,15 +79,32 @@
       width: 50%;
     }
     &__houses {
-      display: flex;
-      justify-content: space-around;
-      width: 55%;
-      margin: 0 auto 40px;
-      &__house {
-        transition: all 0.5s ease-in-out;
-        &:hover {
-          transform: scale(1.25);
-          transition: all 0.5s ease-in-out;
+
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        place-items: center;
+        row-gap: 20px;
+        margin-bottom: 20px;
+        &__house {
+            padding: 5px;
+        }
+        &__logo {
+            width: 140px;
+            height: 160px;
+            object-fit: cover;
+            &--hufflepuff {
+                width: 145px;
+                height: 155px;
+            }
+            &--slytherin {
+                width: 145px;
+                height: 155px;
+            }
+        }
+        &__name {
+            font-size: 18px;
+            text-shadow: 4px 10px 8px rgba(0, 0, 0, 1);
+
         }
       }
     }
