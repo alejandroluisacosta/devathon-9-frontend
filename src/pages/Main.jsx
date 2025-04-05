@@ -4,8 +4,10 @@ import './Main.scss';
 import { PlayerBasicInfo } from '../components/PlayerBasicInfo';
 
 export const Main = () => {
-  const [playerName, setPlayerName] = useState('');
-  const [selectedHouse, setSelectedHouse] = useState('');
+
+  const [playerName, setPlayerName] = useState("");
+  const [selectedHouse, setSelectedHouse] = useState("");
+
   const [isPlayerInfoLoaded, setIsPlayerInfoLoaded] = useState(false);
 
   const [error, setError] = useState('');
@@ -19,7 +21,8 @@ export const Main = () => {
       setIsPlayerInfoLoaded(false);
     }
   }, []);
-
+  
+ 
   const handleNameChange = e => {
     /*setPlayerName(e.target.value);*/
     const value = e.target.value.replace(/[^a-zA-Z]/g, '');
@@ -41,11 +44,12 @@ export const Main = () => {
       setError(''); // Sin errores si la validación pasa
     }
   };
-
+  
   const handleConfirm = () => {
     const playerData = { name: playerName, house: selectedHouse };
     sendPlayerDataToServer(playerData);
-    localStorage.setItem('playerInfo', JSON.stringify(playerData));
+    localStorage.setItem("playerInfo", JSON.stringify(playerData));
+
     setIsPlayerInfoLoaded(true);
   };
 
