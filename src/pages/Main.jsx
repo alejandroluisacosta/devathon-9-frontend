@@ -45,7 +45,7 @@ export const Main = () => {
   
     if (token) {
       localStorage.setItem("tokenId", token);
-      localStorage.setItem("playerInfo", JSON.stringify({ ...playerData, token: token }));
+      localStorage.setItem("playerInfo", JSON.stringify({ ...playerData, tokenId: token }));
       setIsPlayerInfoLoaded(true);
     }
   };
