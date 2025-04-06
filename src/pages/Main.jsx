@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { sendPlayerDataToServer } from '../utils/sendPlayerDataToServer';
 import './Main.scss';
 import { PlayerBasicInfo } from '../components/PlayerBasicInfo';
+import { registerUser } from '../utils/registerUser';
 
 export const Main = () => {
   const [playerName, setPlayerName] = useState("");
@@ -47,6 +48,7 @@ export const Main = () => {
       localStorage.setItem("tokenId", token);
       localStorage.setItem("playerInfo", JSON.stringify({ ...playerData, tokenId: token }));
       setIsPlayerInfoLoaded(true);
+      registerUser(token);
     }
   };
 
