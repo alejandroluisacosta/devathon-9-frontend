@@ -39,11 +39,15 @@ export const Main = () => {
 
   }
   
-  const handleConfirm = () => {
+  const handleConfirm = async () => {
     const playerData = { sessionId: generateFakeSessionId(), name: playerName, house: selectedHouse };
-    sendPlayerDataToServer(playerData);
-    localStorage.setItem("playerInfo", JSON.stringify(playerData));
-    setIsPlayerInfoLoaded(true);
+    const token = await sendPlayerDataToServer(playerData);
+  
+    if (token) {
+      localStorage.setItem("tokenId", token);
+      localStorage.setItem("playerInfo", JSON.stringify({ ...playerData, token: token }));
+      setIsPlayerInfoLoaded(true);
+    }
   };
 
   return (
