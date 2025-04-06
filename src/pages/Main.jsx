@@ -8,8 +8,21 @@ export const Main = () => {
   const [selectedHouse, setSelectedHouse] = useState("");
   const [isPlayerInfoLoaded, setIsPlayerInfoLoaded] = useState(false);
 
+  const generateFakeSessionId = () => {
+    return 'fake-session-' + Math.random().toString(36).substr(2, 9);
+  };
+  
+
   useEffect(() => {
     const storedPlayer = localStorage.getItem("playerInfo");
+    const token = localStorage.getItem("tokenId");
+
+    if (token) {
+      console.log("Token retrieved:", token);
+    } else {
+      console.log("No token found.");
+    }
+
     if (storedPlayer) {
       const { name, house } = JSON.parse(storedPlayer);
       setPlayerName(name);
@@ -27,7 +40,7 @@ export const Main = () => {
   }
   
   const handleConfirm = () => {
-    const playerData = { name: playerName, house: selectedHouse };
+    const playerData = { sessionId: generateFakeSessionId(), name: playerName, house: selectedHouse };
     sendPlayerDataToServer(playerData);
     localStorage.setItem("playerInfo", JSON.stringify(playerData));
     setIsPlayerInfoLoaded(true);
@@ -50,7 +63,7 @@ export const Main = () => {
           onChange={handleNameChange} 
         />
         
-        <h2 className="main-page__pick-house">Pick your house</h2>
+        <h2 className="main-page__pick-house">Elige tu casa</h2>
         <div className="main-page__houses">
           {['Gryffindor', 'Slytherin', 'Hufflepuff', 'Ravenclaw'].map((house) => (
             <div 
