@@ -3,12 +3,15 @@ import { sendPlayerDataToServer } from '../utils/sendPlayerDataToServer';
 import './Main.scss';
 import { PlayerBasicInfo } from '../components/PlayerBasicInfo';
 import { registerUser } from '../utils/registerUser';
+import { useStomp } from '../utils/useStomp';
 
 export const Main = () => {
   const [playerName, setPlayerName] = useState("");
   const [selectedHouse, setSelectedHouse] = useState("");
   const [isPlayerInfoLoaded, setIsPlayerInfoLoaded] = useState(false);
-
+  const [playersList, setPlayersList] = useState([]);
+  const { subscribe } = useStomp();
+  
   const generateFakeSessionId = () => {
     return 'fake-session-' + Math.random().toString(36).substr(2, 9);
   };
@@ -31,6 +34,18 @@ export const Main = () => {
       setIsPlayerInfoLoaded(true);
     }
   }, []);
+
+  useEffect(() => {
+    const sub = subscribe('/user/queue/list-players', msg => {
+      const data = JSON.parse(msg.body);
+      setPlayersList(data); // Update state with list of players
+      console.log('👥 List of Players:', data);
+    });
+
+    return () => {
+      sub?.unsubscribe();
+    };
+  }, [subscribe]);
   
   const handleNameChange = (e) => setPlayerName(e.target.value);
   
