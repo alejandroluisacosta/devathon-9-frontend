@@ -31,9 +31,19 @@ export const StompProvider = ({ children }) => {
     if (!clientRef.current || !connected) return null;
     return clientRef.current.subscribe(destination, callback);
   };
+
+  const sendMessage = (destination, body, headers = {}) => {
+    if (!clientRef.current || !connected) return;
+
+    clientRef.current.publish({
+      destination,
+      body: JSON.stringify(body),
+      headers,
+    });
+  };
   
   return (
-    <StompContext.Provider value={{ client: clientRef.current, connected, subscribe }}>
+    <StompContext.Provider value={{ client: clientRef.current, connected, subscribe, sendMessage }}>
       {children}
     </StompContext.Provider>
   );

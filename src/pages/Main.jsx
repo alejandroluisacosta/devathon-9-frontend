@@ -10,7 +10,7 @@ export const Main = () => {
   const [selectedHouse, setSelectedHouse] = useState("");
   const [isPlayerInfoLoaded, setIsPlayerInfoLoaded] = useState(false);
   const [playersList, setPlayersList] = useState([]);
-  const { subscribe } = useStomp();
+  const { subscribe, sendMessage } = useStomp();
   
   const generateFakeSessionId = () => {
     return 'fake-session-' + Math.random().toString(36).substr(2, 9);
@@ -50,6 +50,7 @@ export const Main = () => {
   
   const handleConfirm = async () => {
     const playerData = { sessionId: generateFakeSessionId(), name: playerName, house: selectedHouse };
+    registerUser(playerData, sendMessage);
   
     localStorage.setItem("playerInfo", JSON.stringify({ ...playerData }));
     setIsPlayerInfoLoaded(true);
