@@ -15,5 +15,6 @@ export const PlayerBasicInfo = ({ playerName, selectedHouse, className }) => {
             </div>
         </div>
     )
+
 }
 

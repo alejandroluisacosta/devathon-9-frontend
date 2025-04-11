@@ -7,6 +7,9 @@ settings:
 importers:
   .:
     dependencies:
+      '@stomp/stompjs':
+        specifier: ^7.1.1
+        version: 7.1.1
       react:
         specifier: ^19.0.0
         version: 19.0.0
@@ -676,6 +679,9 @@ packages:
       }
     cpu: [x64]
     os: [win32]
+
+  '@stomp/stompjs@7.1.1':
+    resolution: {integrity: sha512-chcDs6YkAnKp1FqzwhGvh3i7v0+/ytzqWdKYw6XzINEKAzke/iD00dNgFPWSZEqktHOK+C1gSzXhLkLbARIaZw==}
 
   '@swc/core-darwin-arm64@1.11.12':
     resolution:
@@ -1909,6 +1915,8 @@ snapshots:
 
   '@rollup/rollup-win32-x64-msvc@4.37.0':
     optional: true
+
+  '@stomp/stompjs@7.1.1': {}
 
   '@swc/core-darwin-arm64@1.11.12':
     optional: true

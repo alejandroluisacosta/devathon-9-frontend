@@ -6,5 +6,3 @@ export const houseColors = {
     Ravenclaw: 'rgba(0, 0, 204, 0.3)'
 };
 
-  
-

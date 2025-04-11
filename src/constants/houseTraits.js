@@ -3,4 +3,6 @@ export const houseTraits = {
   Slytherin: 'astuto',
   Hufflepuff: 'leal',
   Ravenclaw: 'sabio',
+
 };
+
