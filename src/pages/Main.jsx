@@ -19,13 +19,6 @@ export const Main = () => {
 
   useEffect(() => {
     const storedPlayer = localStorage.getItem("playerInfo");
-    const token = localStorage.getItem("tokenId");
-
-    if (token) {
-      console.log("Token retrieved:", token);
-    } else {
-      console.log("No token found.");
-    }
 
     if (storedPlayer) {
       const { name, house } = JSON.parse(storedPlayer);
@@ -38,7 +31,7 @@ export const Main = () => {
   useEffect(() => {
     const sub = subscribe('/user/queue/list-players', msg => {
       const data = JSON.parse(msg.body);
-      setPlayersList(data); // Update state with list of players
+      setPlayersList(data);
       console.log('👥 List of Players:', data);
     });
 
@@ -57,14 +50,9 @@ export const Main = () => {
   
   const handleConfirm = async () => {
     const playerData = { sessionId: generateFakeSessionId(), name: playerName, house: selectedHouse };
-    const token = await sendPlayerDataToServer(playerData);
   
-    if (token) {
-      localStorage.setItem("tokenId", token);
-      localStorage.setItem("playerInfo", JSON.stringify({ ...playerData, tokenId: token }));
-      setIsPlayerInfoLoaded(true);
-      registerUser(token);
-    }
+    localStorage.setItem("playerInfo", JSON.stringify({ ...playerData }));
+    setIsPlayerInfoLoaded(true);
   };
 
   return (
