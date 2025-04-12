@@ -11,18 +11,14 @@ export const Main = () => {
 
   const [playerName, setPlayerName] = useState("");
   const [selectedHouse, setSelectedHouse] = useState("");
-  const [isPlayerInfoLoaded, setIsPlayerInfoLoaded] = useState(false);
   const [playersList, setPlayersList] = useState([]);
   const { subscribe, sendMessage } = useStomp();
+  const [isPlayerInfoLoaded, setIsPlayerInfoLoaded] = useState(false);
+  const [error, setError] = useState('');
   
   const generateFakeSessionId = () => {
     return 'fake-session-' + Math.random().toString(36).substr(2, 9);
   };
-  
-
-  const [isPlayerInfoLoaded, setIsPlayerInfoLoaded] = useState(false);
-
-  const [error, setError] = useState('');
 
   useEffect(() => {
 
