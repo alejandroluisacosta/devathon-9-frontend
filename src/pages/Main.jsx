@@ -5,6 +5,7 @@ import { PlayerBasicInfo } from '../components/PlayerBasicInfo';
 
 import { registerUser } from '../utils/registerUser';
 import { useStomp } from '../utils/useStomp';
+import { useNavigate } from 'react-router-dom';
 
 
 export const Main = () => {
@@ -15,6 +16,7 @@ export const Main = () => {
   const { subscribe, sendMessage } = useStomp();
   const [isPlayerInfoLoaded, setIsPlayerInfoLoaded] = useState(false);
   const [error, setError] = useState('');
+  const navigate = useNavigate();
   
   const generateFakeSessionId = () => {
     return 'fake-session-' + Math.random().toString(36).substr(2, 9);
@@ -51,9 +53,9 @@ export const Main = () => {
   
   const handleHouseSelect = (house) => setSelectedHouse(house);
 
-  const handlePlay = () => {
-
-  }
+  const redirectToRoomList = () => {
+    navigate('/room-list');
+  };
   
   const handleConfirm = async () => {
     const playerData = { sessionId: generateFakeSessionId(), name: playerName, house: selectedHouse };
@@ -108,9 +110,9 @@ export const Main = () => {
           ))}
         </div>
       </div>}
-      <button className="main-page__button relative-element" onClick={isPlayerInfoLoaded ? handlePlay : handleConfirm}>
+      <button className="main-page__button relative-element" onClick={isPlayerInfoLoaded ? redirectToRoomList : handleConfirm}>
 
-        {isPlayerInfoLoaded ? 'Jugar' : 'Confirmar'}
+        {isPlayerInfoLoaded ? 'Buscar duelo' : 'Confirmar'}
       </button>
     </div>
   );
