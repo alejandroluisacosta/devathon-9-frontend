@@ -1,11 +1,18 @@
 import React, { createContext, useContext, useEffect, useRef, useState } from 'react';
 import { Client } from '@stomp/stompjs';
 
-const StompContext = createContext({ client: null, connected: false });
+export const StompContext = createContext({ client: null, connected: false });
 
 export const StompProvider = ({ children }) => {
   const clientRef = useRef(null);
   const [connected, setConnected] = useState(false);
+  const [rooms, setRooms] = useState([
+    { name: 'Cámara Secreta' },
+    { name: 'Gran Comedor' },
+    { name: 'Bosque Prohibido' },
+    { name: 'Sala de los Menesteres' },
+    { name: 'Aula de Defensa Contra las Artes Oscuras' },
+  ]);
 
   useEffect(() => {
     const client = new Client({
@@ -43,7 +50,7 @@ export const StompProvider = ({ children }) => {
   };
   
   return (
-    <StompContext.Provider value={{ client: clientRef.current, connected, subscribe, sendMessage }}>
+    <StompContext.Provider value={{ client: clientRef.current, connected, subscribe, sendMessage, rooms, setRooms }}>
       {children}
     </StompContext.Provider>
   );
