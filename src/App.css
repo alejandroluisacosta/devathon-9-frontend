@@ -4,6 +4,9 @@
 
 body {
   margin: 0;
+}
+
+body, button {
   font-family: 'Xefora', sans-serif;
 }
 
