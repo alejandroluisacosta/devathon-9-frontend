@@ -16,7 +16,7 @@
     font-family: 'Aclonica', 'sans-serif';
   }
   &__player-name,
-  &__pick-house {
+  &__pick-house, &__name-label {
     margin-top: unset;
     margin-bottom: 20px;
     text-shadow: 4px 10px 8px rgba(0, 0, 0, 1);

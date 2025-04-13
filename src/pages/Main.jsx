@@ -75,7 +75,9 @@ export const Main = () => {
         <PlayerBasicInfo playerName={playerName} selectedHouse={selectedHouse} className="fade-in relative-element"/>
       </>
       :
+      
       <div className={"main-page__form relative-element"}>
+        <h2 className="main-page__name-label">Nombre de mago</h2>
         <input 
           type="text" 
           className="main-page__name-input" 
