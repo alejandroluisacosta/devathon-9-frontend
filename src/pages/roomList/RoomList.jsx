@@ -1,14 +1,32 @@
-import { useContext } from 'react';
+import { useContext, useEffect } from 'react';
 import { StompContext } from '../../stomp/StompProvider';
 import './RoomList.scss';
+import { houseColors } from '../../constants/houseColors';
 
-export const RoomList = () => {
+export const RoomList = ({ selectedHouse }) => {
   const { rooms } = useContext(StompContext);
-
+  useEffect(() => {
+    const element = document.querySelector('.room-list');
+    const playerInfo = JSON.parse(localStorage.getItem('playerInfo'));
+    const house = playerInfo?.house;
+  
+    if (element && house && houseColors[house]) {
+      element.style.setProperty('--house-color', houseColors[house]);
+      if (house === 'Hufflepuff') {
+        element.style.setProperty('--house-color', 'rgba(255, 206, 58, 0.57)');
+        element.style.setProperty('--text-color', 'black');
+      } else {
+        element.style.setProperty('--text-color', 'white');
+      }
+      
+    }
+  }, []);
+  
   return (
     <div className='room-list'>
       <div className='fade-in'>
         <h1 className='room-list__title'>¿Listo para el combate?</h1>
+        <h2 className='room-list__subtitle'>Elige tu sala</h2>
         <div className='room-list__list'>
           {rooms.map((room, index) => (
             <div className='room-list__list__room' key={index}>
