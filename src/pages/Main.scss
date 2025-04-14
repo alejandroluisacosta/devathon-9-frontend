@@ -12,8 +12,11 @@
   &__title {
     font-size: 40px;
     text-shadow: 4px 10px 8px rgba(0, 0, 0, 1);
-    margin-bottom: 20px;
+    margin-bottom: 10px;
     font-family: 'Aclonica', 'sans-serif';
+  }
+  &__subtitle {
+    margin: 10px 0 40px;
   }
   &__rules-icon {
     position: absolute;
