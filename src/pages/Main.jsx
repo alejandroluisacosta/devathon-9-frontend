@@ -91,6 +91,7 @@ export const Main = () => {
     <div className={`main-page ${isPlayerInfoLoaded ? "with-background" : ""}`}>
       <img className="main-page__rules-icon relative-element" src="/images/Book.svg" alt="Ícono de reglas" onClick={handleShowRules}/>
       <h1 className="main-page__title relative-element">Expelliarmicus</h1>
+      <p className='main-page__subtitle relative-element'>Donde los verdaderos magos resuelven sus diferencias</p>
       {showRules && <Rules closeModal={handleCloseRules}/>}
       {isPlayerInfoLoaded ? 
       <>
