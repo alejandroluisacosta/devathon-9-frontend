@@ -1,8 +1,7 @@
 import { useState, useEffect } from 'react';
-import { sendPlayerDataToServer } from '../utils/sendPlayerDataToServer';
 import './Main.scss';
-import { PlayerBasicInfo } from '../components/PlayerBasicInfo';
-
+import { PlayerBasicInfo } from '../components/playerBasicInfo/PlayerBasicInfo';
+import { Rules } from '../components/rules/Rules';
 import { registerUser } from '../utils/registerUser';
 import { useStomp } from '../utils/useStomp';
 import { useNavigate } from 'react-router-dom';
@@ -17,6 +16,7 @@ export const Main = () => {
   const [isPlayerInfoLoaded, setIsPlayerInfoLoaded] = useState(false);
   const [error, setError] = useState('');
   const navigate = useNavigate();
+  const [showRules, setShowRules] = useState(false);
   
   const generateFakeSessionId = () => {
     return 'fake-session-' + Math.random().toString(36).substr(2, 9);
@@ -49,6 +49,11 @@ export const Main = () => {
   }, [subscribe]);
   
 
+  const handleShowRules = () => {
+    setShowRules(true);
+  };
+  
+
   const handleNameChange = (e) => setPlayerName(e.target.value);
   
   const handleHouseSelect = (house) => setSelectedHouse(house);
@@ -70,6 +75,8 @@ export const Main = () => {
 
     <div className={`main-page ${isPlayerInfoLoaded ? "with-background" : ""}`}>
       <h1 className="main-page__title relative-element">Expelliarmicus</h1>
+      <img className="main-page__logo relative-element" src="/images/logo.webp" alt="Logo" onClick={handleShowRules}/>
+      {showRules && <Rules />}
       {isPlayerInfoLoaded ? 
       <>
         <PlayerBasicInfo playerName={playerName} selectedHouse={selectedHouse} className="fade-in relative-element"/>
