@@ -52,6 +52,21 @@ export const Main = () => {
   const handleShowRules = () => {
     setShowRules(true);
   };
+
+  const handleCloseRules = () => {
+    setShowRules(false);
+  };
+
+  useEffect(() => {
+    const handleKeyDown = (e) => {
+      if (e.key === 'Escape') {
+        setShowRules(false);
+      }
+    };
+  
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, []);
   
 
   const handleNameChange = (e) => setPlayerName(e.target.value);
@@ -76,7 +91,7 @@ export const Main = () => {
     <div className={`main-page ${isPlayerInfoLoaded ? "with-background" : ""}`}>
       <h1 className="main-page__title relative-element">Expelliarmicus</h1>
       <img className="main-page__logo relative-element" src="/images/logo.webp" alt="Logo" onClick={handleShowRules}/>
-      {showRules && <Rules />}
+      {showRules && <Rules closeModal={handleCloseRules}/>}
       {isPlayerInfoLoaded ? 
       <>
         <PlayerBasicInfo playerName={playerName} selectedHouse={selectedHouse} className="fade-in relative-element"/>
