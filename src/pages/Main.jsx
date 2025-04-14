@@ -90,7 +90,7 @@ export const Main = () => {
 
     <div className={`main-page ${isPlayerInfoLoaded ? "with-background" : ""}`}>
       <h1 className="main-page__title relative-element">Expelliarmicus</h1>
-      <img className="main-page__logo relative-element" src="/images/logo.webp" alt="Logo" onClick={handleShowRules}/>
+      <img className="main-page__rules-icon relative-element" src="/images/Book.svg" alt="Ícono de reglas" onClick={handleShowRules}/>
       {showRules && <Rules closeModal={handleCloseRules}/>}
       {isPlayerInfoLoaded ? 
       <>
