@@ -1,6 +1,6 @@
-import { houseTraits } from '../constants/houseTraits';
+import { houseTraits } from '../../constants/houseTraits';
 import './PlayerBasicInfo.scss';
-import { houseColors } from '../constants/houseColors';
+import { houseColors } from '../../constants/houseColors';
 
 export const PlayerBasicInfo = ({ playerName, selectedHouse, className }) => {
 

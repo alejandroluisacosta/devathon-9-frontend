@@ -4,6 +4,9 @@
 
 body {
   margin: 0;
+}
+
+body, button {
   font-family: 'Xefora', sans-serif;
 }
 
@@ -54,4 +57,20 @@ h6 {
       transform: translateY(0);
     }
   }
+
+.modal-fade-in {
+  opacity: 0;
+  animation: modalFadeIn 0.5s ease forwards;
+}
+
+@keyframes modalFadeIn {
+  from {
+    opacity: 0;
+    transform: translate(-50%, 10px);
+  }
+  to {
+    opacity: 1;
+    transform: translate(-50%, 0);
+  }
+}
 

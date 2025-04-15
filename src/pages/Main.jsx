@@ -1,8 +1,7 @@
 import { useState, useEffect } from 'react';
-import { sendPlayerDataToServer } from '../utils/sendPlayerDataToServer';
 import './Main.scss';
-import { PlayerBasicInfo } from '../components/PlayerBasicInfo';
-
+import { PlayerBasicInfo } from '../components/playerBasicInfo/PlayerBasicInfo';
+import { Rules } from '../components/rules/Rules';
 import { registerUser } from '../utils/registerUser';
 import { useStomp } from '../utils/useStomp';
 import { useNavigate } from 'react-router-dom';
@@ -17,6 +16,7 @@ export const Main = () => {
   const [isPlayerInfoLoaded, setIsPlayerInfoLoaded] = useState(false);
   const [error, setError] = useState('');
   const navigate = useNavigate();
+  const [showRules, setShowRules] = useState(false);
   
   const generateFakeSessionId = () => {
     return 'fake-session-' + Math.random().toString(36).substr(2, 9);
@@ -49,6 +49,26 @@ export const Main = () => {
   }, [subscribe]);
   
 
+  const handleShowRules = () => {
+    setShowRules(true);
+  };
+
+  const handleCloseRules = () => {
+    setShowRules(false);
+  };
+
+  useEffect(() => {
+    const handleKeyDown = (e) => {
+      if (e.key === 'Escape') {
+        setShowRules(false);
+      }
+    };
+  
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, []);
+  
+
   const handleNameChange = (e) => setPlayerName(e.target.value);
   
   const handleHouseSelect = (house) => setSelectedHouse(house);
@@ -69,13 +89,18 @@ export const Main = () => {
   return (
 
     <div className={`main-page ${isPlayerInfoLoaded ? "with-background" : ""}`}>
+      <img className="main-page__rules-icon relative-element" src="/images/Book.svg" alt="Ícono de reglas" onClick={handleShowRules}/>
       <h1 className="main-page__title relative-element">Expelliarmicus</h1>
+      <p className='main-page__subtitle relative-element'>Donde los verdaderos magos resuelven sus diferencias</p>
+      {showRules && <Rules closeModal={handleCloseRules}/>}
       {isPlayerInfoLoaded ? 
       <>
         <PlayerBasicInfo playerName={playerName} selectedHouse={selectedHouse} className="fade-in relative-element"/>
       </>
       :
+      
       <div className={"main-page__form relative-element"}>
+        <h2 className="main-page__name-label">Nombre de mago</h2>
         <input 
           type="text" 
           className="main-page__name-input" 

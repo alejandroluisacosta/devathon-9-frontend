@@ -11,8 +11,10 @@
     color: white;
     &__title {
         font-size: 40px;
+        margin-bottom: 5px;
+    }
+    &__title, &__subtitle {
         text-shadow: 4px 10px 8px rgba(0, 0, 0, 1);
-        margin-bottom: 20px;
     }
     &__list {
         display: grid;
@@ -22,13 +24,13 @@
         padding: 10px;
         margin: 10px 0;
         border-radius: 8px;
-        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); 
         &__room {
             display: flex;
             justify-content: space-between;
             margin: 0;
             font-size: 1.2rem;
             width: 80%;
+            max-width: 355px;
             border-radius: 8px;
             border: 1px solid #7f0909;
             background-color: #adadadc2;
@@ -58,9 +60,10 @@
                 justify-content: center;
               }
             &:hover {
-                background-color: #7f0909;
-                color: white;
-                transition: background-color 0.8s ease-in-out, color 0.4s ease-in-out;
+                background-color: var(--house-color);
+                color: var(--text-color);
+                transition: background-color 0.8s ease-in-out, color 0.4s ease-in-out, box-shadow 0.4s ease-in-out;
+                box-shadow: 0px 0px 10px rgba(255, 255, 0, 1);
             }
         }
     }
