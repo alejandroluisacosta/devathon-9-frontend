@@ -137,6 +137,40 @@ Recibes el `room_id` cuando se te asigna una sala de duelo con otro jugador (sol
 
 ---
 
+#### `/user/queue/round/result`
+
+**Descripción:**
+
+Devuelve el resultado de la ronda actual, incluyendo el número de ronda, los jugadores involucrados, el hechizo utilizado por cada uno y la cantidad de rondas ganadas por cada jugador.  
+El campo `gameOver` será `true` cuando alguno de los jugadores alcance tres victorias. 
+
+**Formato de respuesta:**
+
+```json
+{
+  "round": 1,
+  "gameOver": false,
+  "result": {
+    "winner": "55f04db1-8d82-7d98-0128-6c0f860964a7" | null,
+    "status": "WINNER" | "DRAW"
+  },
+  "players": [
+    {
+      "id": "87a3bb00-cb7f-6407-5ac3-97e0ba6f70e3",
+      "spellUsed": "8da58423-a8ba-4b7b-898c-d050fdc18cd1",
+      "roundsWon": 0
+    },
+    {
+      "id": "55f04db1-8d82-7d98-0128-6c0f860964a7",
+      "spellUsed": "0772e01a-bdfd-4d3f-9c6d-60b9cb84be9d",
+      "roundsWon": 1
+    }
+  ]
+}
+```
+
+---
+
 ## Publish (Enviar mensajes)
 
 ### `/app/token-id`
@@ -207,6 +241,33 @@ Registra un nuevo usuario en el sistema. Responde por `/user/queue/register-user
 ```
 
 > ⚠️ Actualmente los headers están vacíos, pero se prevé el uso de `token` más adelante.
+
+---
+
+### `/app/round/{roomId}`
+
+**Descripción:**
+
+Envía el hechizo seleccionado por el jugador en una sala de juego y solicita el resultado de la ronda una vez que ambos jugadores hayan enviado su hechizo.  
+La ronda se resuelve automáticamente cuando ambos jugadores hayan enviado su hechizo.
+
+**Parámetros de ruta:**
+
+- `roomId` (UUID): Identificador de la sala en la que se está desarrollando la partida.  
+
+**Body:**
+
+```json
+{
+  "spellId": "c55467de-5c51-4c7c-87f6-ae3d1bd3c506"
+}
+```
+
+**Headers:**
+
+```json
+{}
+```
 
 ---
 
