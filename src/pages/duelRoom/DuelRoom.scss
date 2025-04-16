@@ -1,24 +1,217 @@
-.duel-room {
-    width: 100%;
-    height: 100vh;
-    background: url('/images/DuelRoom_Background.jpg');
+.container {
+    background: url("/images/DuelRoom_Background.webp");
     background-size: cover;
     background-repeat: no-repeat;  
-    background-position: center;  
-    background-attachment: fixed;
-    color: white;
-    &::before {
-        content: "";
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        background-color: #00000041;
-        z-index: 0;
-        transition: opacity 0.8s ease-in-out;
+    background-position: center;
+    display: block;
+    margin: auto;
+}
+.duel-page {
+    max-width: 1200px;
+    margin: auto;
+    display: grid;
+    grid-template-areas: "info duel buttons";
+    grid-template-columns:1fr 5fr 1fr;
+    overflow: hidden;
+    
+    &__buttons{
+        grid-area: buttons;
+        height: 100vh;
+        color: #222;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        align-items: end;
+        padding: 20px;
+
+        &__rules {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            color: #fff;
+            background-color: rgba(0, 0, 0, 0.887);
+            border: 2px solid #7F0909;
+            box-shadow: 0px 0px 10px rgba(255, 0, 1);
+            border-radius: 100px;
+            padding: 8px;
+            cursor: pointer;
+        }
+        [popover]{
+            position: absolute;
+            width: 200px;
+            border: 2px solid #7F0909;
+            border-radius: 5px;
+            top: -45%;
+            left: 85%;
+        }
+        [popover]:popover-open {
+            font-family: 'Aclonica', sans-serif;
+            color: #fff;
+            background-color: rgba(0, 0, 0, 0.887);
+            box-shadow: 0px 0px 10px rgba(255, 0, 1);
+        }
     }
-    &__title {
+    &__players-info {
+        grid-area: info;
+        background-color: rgba(0, 0, 0, 0.887);
+        font-size: 16px;
+        height: fit-content;
+        color: #fff;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-around;
+        align-items: center;
+        text-align: center;
+        margin: 10px 0 0 10px;
+        padding: 10px;
+        border: 2px solid #7F0909;
+        box-shadow: 0px 0px 10px rgba(255, 0, 1);
+        border-radius: 5px;
+        gap: 10px;
+        & h2{
+            margin: 0;
+            text-shadow: 1px 1px 4px rgb(240, 240, 240);
+        }
+        & p {
+            font-family: 'Aclonica', sans-serif;
+            font-size: 14px;
+            margin: 4px;
+
+        }
+    }
+    
+    &__zones{
+        grid-area: duel;
+        height: 100vh;
+        display: grid;
+        justify-items: center;
+        align-content: space-around;
+        grid-template-rows: 1fr 1fr 1fr;
+
+        &__drop-zone {
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+            align-items: center;
+            gap: 100px;
+            & .dropzone {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                text-align: center;
+                background-color: #ffffff50;
+                width: 150px;
+                height: 200px;
+                border: 2px dashed #ccc;
+                padding: 8px;
+                transition: all 0.3s ease;
+            }
+            & h2 {
+                font-size: 46px;
+                font-weight: bold;
+                color: #fff;
+                text-shadow: 4px 6px 6px rgba(0, 0, 0, 1);
+            }
+            & p, strong {
+                font-size: 30px;
+                font-weight: bold;
+                color: #fff;
+                text-shadow: 4px 6px 6px rgba(0, 0, 0, 1);
+            }
+            & img {
+                width: 100%;
+                height: 100%;
+            }
+            .dropzone.active {
+            border: 3px solid #fff;
+            background-color: rgba(255, 255, 255, 0.1);
+            }
+        }
+
+        &__cards {
+            display: flex;
+            align-items: end;
+            gap: 8px;
+            .card {
+                width: 150px;
+                height: 200px;
+                border-radius: 5px;
+                box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+                box-shadow: 0 0 3px rgba(252, 252, 252, 0.5);
+                transition: all 0.3s ease, transform 0.2s ease;
+
+            }
+            .card:active {
+                scale: 1.1;
+                z-index: 10;
+            }
+            & .card:nth-child(1){
+                transform: rotate(-10deg) translate(0, 20px);
+            }
+            & .card:nth-child(3){
+                transform: rotate(10deg) translate(0, 20px);
+            }    
+        }
+        &__cards > .card:hover {
+            transform: translate(0, -30px);
+            scale: 1.1;
+            box-shadow: 0 0 15px 5px rgba(255, 255, 255, 0.6);
+        }
         
+        &__rival{
+            width: 130px;
+            height: 180px;
+            border-radius: 5px;
+            box-shadow: 0 0 7px rgba(252, 252, 252, 0.5);
+            transform: rotate(190deg) translate(0, 30px);
+        }
+    }
+    &__button {
+        background-color: #BB4C48;
+        color: white;
+        font-family: 'Aclonica', sans-serif;
+        padding: 10px 20px;
+        border-radius: 8px;
+        border: none;
+        font-size: 18px;
+        cursor: pointer;
+        transition: all 0.3s ease-in-out;
+    }
+    @media (max-width: 1366px) {
+        .card {
+            width: 120px;
+            height: 170px;
+        }
+        .dropzone {
+            width: 120px;
+            height: 170px;
+        }
+        .duel-page__zones__rival {
+                width: 110px;
+                height: 160px;
+        }
+    }
+    @media (max-width: 768px) {
+        .card {
+            width: 100px;
+            height: 150px;
+        }
+        .dropzone {
+            width: 100px;
+            height: 150px;
+        }
+        .duel-page__zones__drop-zone {
+            & h2, p {
+                font-size: 24px;
+            }
+
+        }
+        .duel-page__zones__rival {
+                width: 90px;
+                height: 130px;
+        }
+    }
+    @media (max-width: 600px) {
     }
 }
