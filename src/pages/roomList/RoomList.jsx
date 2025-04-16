@@ -3,9 +3,11 @@ import { StompContext } from '../../stomp/StompProvider';
 import './RoomList.scss';
 import { houseColors } from '../../constants/houseColors';
 import { useState } from 'react';
+import { useStomp } from '../../utils/useStomp';
 
 export const RoomList = ({ selectedHouse }) => {
   const { rooms } = useContext(StompContext);
+  const { subscribe, sendMessage } = useStomp();
   useEffect(() => {
     const element = document.querySelector('.room-list');
     const playerInfo = JSON.parse(localStorage.getItem('playerInfo'));
@@ -25,12 +27,17 @@ export const RoomList = ({ selectedHouse }) => {
 
   const [isRequestingDuel, setIsRequestingDuel] = useState(false);
 
-  const handleRequestDuel = () => {
-    setIsRequestingDuel(true);
-
-    // 1. Subscribe to `/user/queue/duel`
-    // 2. Send info to `/app/duel`
-    // (Implement these with your STOMP client)
+  const handleJoinDuel = () => {
+    const playerInfo = JSON.parse(localStorage.getItem('playerInfo'));
+    if (!playerInfo) return;
+  
+    subscribe('/user/queue/duel', (message) => {
+      const data = JSON.parse(message.body);
+      console.log('Received room ID:', data.room_id);
+      // Handle room ID, e.g., redirect to room
+    });
+  
+    sendMessage('/app/duel', playerInfo);
   };
   
   return (
@@ -53,7 +60,7 @@ export const RoomList = ({ selectedHouse }) => {
             </div>
           ))}
         </div>
-        <button className="room-list__request-button" onClick={handleRequestDuel}>Iniciar duelo</button>
+        <button className="room-list__request-button" onClick={handleJoinDuel}>Iniciar duelo</button>
       </div>
     </div>
   );
