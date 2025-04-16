@@ -2,6 +2,7 @@ import { useContext, useEffect } from 'react';
 import { StompContext } from '../../stomp/StompProvider';
 import './RoomList.scss';
 import { houseColors } from '../../constants/houseColors';
+import { useState } from 'react';
 
 export const RoomList = ({ selectedHouse }) => {
   const { rooms } = useContext(StompContext);
@@ -21,6 +22,16 @@ export const RoomList = ({ selectedHouse }) => {
       
     }
   }, []);
+
+  const [isRequestingDuel, setIsRequestingDuel] = useState(false);
+
+  const handleRequestDuel = () => {
+    setIsRequestingDuel(true);
+
+    // 1. Subscribe to `/user/queue/duel`
+    // 2. Send info to `/app/duel`
+    // (Implement these with your STOMP client)
+  };
   
   return (
     <div className='room-list'>
@@ -42,6 +53,7 @@ export const RoomList = ({ selectedHouse }) => {
             </div>
           ))}
         </div>
+        <button className="room-list__request-button" onClick={handleRequestDuel}>Iniciar duelo</button>
       </div>
     </div>
   );
