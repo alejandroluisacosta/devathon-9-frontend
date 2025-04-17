@@ -1,6 +1,7 @@
-import './DuelRoom.scss'
+import './DuelRoom.scss';
 import { DndContext, useDraggable, useDroppable } from '@dnd-kit/core';
-import { useState } from 'react';
+import { useState, useRef, useEffect } from 'react';
+import FlipClock from '../../components/flipClock/FlipClock';
 
 const cards = [
     { id: 'Expelliarmus', image: '/images/Expelliarmus.webp' },
@@ -49,6 +50,28 @@ export const DuelRoom = () => {
     rivalZone: null,
     });
 
+    const zonesRef = useRef(zones);
+
+    useEffect(() => {
+    zonesRef.current = zones;
+    }, [zones]);
+    
+    const countdownTo = useRef(Date.now() + 30 * 1000);
+    const [showModal, setShowModal] = useState(false);
+    const [resultMessage, setResultMessage] = useState('');
+
+    const handleTimerComplete = () => {
+        const userPlayedCard = zonesRef.current.userZone;
+        console.log('Carta en userZone:', userPlayedCard);
+      
+        if (userPlayedCard) {
+            setResultMessage('¡Ganaste!');
+        } else {
+            setResultMessage('Perdiste');
+        }
+        setShowModal(true);
+    };
+
     const handleDragEnd = (event) => {
     const { over, active } = event;
 
@@ -95,11 +118,13 @@ export const DuelRoom = () => {
                                     <p className="duel-page__zones__placeholder">Suelta tu carta aquí</p>
                                 )}
                             </DropZone>
+                            <div className='duel-page__zones__timer'>
+                                <FlipClock to={countdownTo.current} onComplete={handleTimerComplete} />
+                            </div>
                             <DropZone id="rivalZone">
                                 <h2>Zona Rival</h2>
                             </DropZone>
                         </div>
-                
                         <div className="duel-page__zones__cards">
                             {cards.map((card) => (
                                 <Card key={card.id} {...card} />
@@ -119,9 +144,17 @@ export const DuelRoom = () => {
                         Exit
                     </button>
                 </div>
+                {showModal && (
+                    <div className="modal-overlay">
+                        <div className="modal-content">
+                        <h2>{resultMessage}</h2>
+                        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Natus, adipisci accusantium obcaecati aspernatur nesciunt eveniet deleniti incidunt eum ea! Numquam, vel. Eius ipsum, nisi sunt illum vero asperiores exercitationem quas.</p>
+                        <button className='modal-content__button' onClick={() => setShowModal(false)}>Regresar</button>
+                        </div>
+                    </div>
+                    )}
         </div>
-    </div>
-
+        </div>
     )
 }
 
