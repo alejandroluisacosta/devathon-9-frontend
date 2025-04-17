@@ -5,23 +5,18 @@ import { Main } from './pages/Main';
 import { DuelRoom } from './pages/duelRoom/DuelRoom';
 import { RoomList } from './pages/roomList/RoomList';
 
-
-
 function App() {
   return (
     <StompProvider>
-
-        <Routes>
-          <Route path="/" element={<Main />} />
-          <Route path="/duel-room" element={<DuelRoom />} />
-          <Route path="/room-list" element={<RoomList />} />
-          {/* 
+      <Routes>
+        <Route path='/' element={<Main />} />
+        <Route path='/duel-room' element={<DuelRoom />} />
+        <Route path='/room-list' element={<RoomList />} />
+        {/* 
           <Route path="/create-room" element={<CreateRoom />} />
            */}
-        </Routes>
-
+      </Routes>
     </StompProvider>
-
   );
 }
 

@@ -25,10 +25,10 @@ export const StompProvider = ({ children }) => {
       onDisconnect: () => setConnected(false),
       onStompError: frame => console.error('STOMP error', frame.body),
     });
-  
+
     client.activate();
     clientRef.current = client;
-  
+
     return () => {
       client.deactivate();
     };
@@ -48,9 +48,11 @@ export const StompProvider = ({ children }) => {
       headers,
     });
   };
-  
+
   return (
-    <StompContext.Provider value={{ client: clientRef.current, connected, subscribe, sendMessage, rooms, setRooms }}>
+    <StompContext.Provider
+      value={{ client: clientRef.current, connected, subscribe, sendMessage, rooms, setRooms }}
+    >
       {children}
     </StompContext.Provider>
   );

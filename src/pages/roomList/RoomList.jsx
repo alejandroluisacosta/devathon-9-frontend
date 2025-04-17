@@ -1,18 +1,21 @@
 import { useContext, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { StompContext } from '../../stomp/StompProvider';
 import './RoomList.scss';
 import { houseColors } from '../../constants/houseColors';
-import { useState } from 'react';
+// import { useState } from 'react';
 import { useStomp } from '../../utils/useStomp';
 
-export const RoomList = ({ selectedHouse }) => {
+export const RoomList = () => {
   const { rooms } = useContext(StompContext);
   const { subscribe, sendMessage } = useStomp();
+  const navigate = useNavigate();
+
   useEffect(() => {
     const element = document.querySelector('.room-list');
     const playerInfo = JSON.parse(localStorage.getItem('playerInfo'));
     const house = playerInfo?.house;
-  
+
     if (element && house && houseColors[house]) {
       element.style.setProperty('--house-color', houseColors[house]);
       if (house === 'Hufflepuff') {
@@ -21,25 +24,24 @@ export const RoomList = ({ selectedHouse }) => {
       } else {
         element.style.setProperty('--text-color', 'white');
       }
-      
     }
   }, []);
 
-  const [isRequestingDuel, setIsRequestingDuel] = useState(false);
+  //const [isRequestingDuel, setIsRequestingDuel] = useState(false);
 
   const handleJoinDuel = () => {
     const playerInfo = JSON.parse(localStorage.getItem('playerInfo'));
     if (!playerInfo) return;
-  
-    subscribe('/user/queue/duel', (message) => {
+
+    subscribe('/user/queue/duel', message => {
       const data = JSON.parse(message.body);
       console.log('Received room ID:', data.room_id);
-      // Handle room ID, e.g., redirect to room
+      navigate('/duel-room');
     });
-  
+
     sendMessage('/app/duel', playerInfo);
   };
-  
+
   return (
     <div className='room-list'>
       <div className='fade-in'>
@@ -60,7 +62,9 @@ export const RoomList = ({ selectedHouse }) => {
             </div>
           ))}
         </div>
-        <button className="room-list__request-button" onClick={handleJoinDuel}>Iniciar duelo</button>
+        <button className='room-list__request-button' onClick={handleJoinDuel}>
+          Iniciar duelo
+        </button>
       </div>
     </div>
   );
