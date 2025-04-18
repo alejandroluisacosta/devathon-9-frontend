@@ -4,15 +4,15 @@ import { PlayerBasicInfo } from '../components/playerBasicInfo/PlayerBasicInfo';
 import { Rules } from '../components/rules/Rules';
 import { registerUser } from '../utils/registerUser';
 import { useStomp } from '../utils/useStomp';
-import { useNavigate } from 'react-router-dom';
+import { useJoinDuel } from '../utils/useJoinDuel';
 
 export const Main = () => {
   const [playerName, setPlayerName] = useState('');
   const [selectedHouse, setSelectedHouse] = useState('');
   const { subscribe, sendMessage } = useStomp();
   const [isPlayerInfoLoaded, setIsPlayerInfoLoaded] = useState(false);
-  const navigate = useNavigate();
   const [showRules, setShowRules] = useState(false);
+  const { joinDuel } = useJoinDuel();
 
   const generateFakeSessionId = () => {
     return 'fake-session-' + Math.random().toString(36).substr(2, 9);
@@ -64,7 +64,7 @@ export const Main = () => {
   const handleHouseSelect = house => setSelectedHouse(house);
 
   const redirectToRoomList = () => {
-    navigate('/room-list');
+    joinDuel();
   };
 
   const handleConfirm = async () => {
