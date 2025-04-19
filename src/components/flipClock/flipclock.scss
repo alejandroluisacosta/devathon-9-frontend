@@ -1,0 +1,18 @@
+.flip-clock {
+	--fcc-digit-block-width: 60px; /* width of digit card */
+	--fcc-digit-block-height: 80px; /* height of digit card, highly recommend in even number */
+	--fcc-digit-font-size: 70px; /* font size of digit */
+	--fcc-digit-color: #2d261e; /* color of digit */
+	--fcc-background: linear-gradient(77deg,rgba(99, 71, 44, 1) 1%, rgba(163, 120, 77, 1) 50%, rgba(99, 71, 44, 1) 100%); /* background of digit card */
+	--fcc-divider-color: #2d261e; /* color of divider */
+	--fcc-divider-height: 0.5px; /* height of divider */
+	--fcc-digit-block-radius: 5px; /* border radius of digit card */
+	--fcc-digit-block-spacing: 1px; /* space between blocks in each unit of time */
+}
+@media (max-width: 768px) {
+	.flip-clock{
+		--fcc-digit-block-width: 30px; 
+		--fcc-digit-block-height: 40px; 
+		--fcc-digit-font-size: 40px; 
+	}
+}
