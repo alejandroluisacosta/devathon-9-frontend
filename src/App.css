@@ -6,7 +6,8 @@ body {
   margin: 0;
 }
 
-body, button {
+body,
+button {
   font-family: 'Xefora', sans-serif;
 }
 
@@ -27,36 +28,37 @@ h6 {
 }
 
 @font-face {
+  font-family: 'Xefora';
+  src: url('/fonts/Xefora.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
 
-    font-family: 'Xefora';
-    src: url('/fonts/Xefora.ttf') format('truetype');
-    font-weight: normal;
-    font-style: normal;
-  }
+.fade-out {
+  opacity: 0;
+  transform: translateY(-10px);
+  transition:
+    opacity 0.5s ease,
+    transform 0.5s ease;
+}
 
-  .fade-out {
-    opacity: 0;
-    transform: translateY(-10px);
-    transition: opacity 0.5s ease, transform 0.5s ease;
-  }
-  
-  .fade-in {
-    opacity: 0;
-    transform: translateY(10px);
-    animation: fadeIn 0.5s ease forwards;
-  }
+.fade-in {
+  opacity: 0;
+  transform: translateY(10px);
+  animation: fadeIn 0.5s ease forwards;
+}
 
-  .relative-element {
-    position: relative;
-    z-index: 1;
+.relative-element {
+  position: relative;
+  z-index: 1;
+}
+
+@keyframes fadeIn {
+  to {
+    opacity: 1;
+    transform: translateY(0);
   }
-  
-  @keyframes fadeIn {
-    to {
-      opacity: 1;
-      transform: translateY(0);
-    }
-  }
+}
 
 .modal-fade-in {
   opacity: 0;
@@ -73,4 +75,3 @@ h6 {
     transform: translate(-50%, 0);
   }
 }
-

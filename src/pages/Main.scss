@@ -2,7 +2,7 @@
   padding: 80px 5% 10px 5%;
   text-align: center;
   background: url('/images/main_background.webp');
-  min-height: 100vh;
+  height: 100vh;
   width: 100%;
   background-size: cover;
   background-repeat: no-repeat;
@@ -29,7 +29,7 @@
     width: 30px;
     padding: 3px;
     cursor: pointer;
-  
+
     @keyframes glow {
       from {
         box-shadow: 0 0 10px 0px rgba(255, 0, 0, 0.5);
@@ -40,7 +40,8 @@
     }
   }
   &__player-name,
-  &__pick-house, &__name-label {
+  &__pick-house,
+  &__name-label {
     margin-top: unset;
     margin-bottom: 10px;
     text-shadow: 4px 10px 8px rgba(0, 0, 0, 1);
@@ -102,7 +103,7 @@
 
 @media only screen and (min-width: 1000px) {
   .main-page {
-    padding: 60px 5%;
+    padding: 30px 5%;
     &__rules-icon {
       position: relative;
       top: unset;
@@ -110,6 +111,9 @@
       margin-bottom: 5px;
       padding: 5px;
       width: 40px;
+    }
+    &__subtitle {
+      margin-bottom: 20px;
     }
     &__name-input {
       width: 50%;
