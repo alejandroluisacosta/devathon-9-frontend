@@ -6,6 +6,7 @@ export const StompContext = createContext({ client: null, connected: false });
 export const StompProvider = ({ children }) => {
   const clientRef = useRef(null);
   const [connected, setConnected] = useState(false);
+  const [sessionId, setSessionId] = useState(null);
   const [rooms, setRooms] = useState([
     { name: 'Cámara Secreta' },
     { name: 'Gran Comedor' },
@@ -13,6 +14,11 @@ export const StompProvider = ({ children }) => {
     { name: 'Sala de los Menesteres' },
     { name: 'Aula de Defensa Contra las Artes Oscuras' },
   ]);
+
+  const updateSessionId = (newSessionId) => {
+    setSessionId(newSessionId);
+    console.log('Session ID updated in context:', newSessionId);
+  };
 
   useEffect(() => {
     const client = new Client({
@@ -51,7 +57,7 @@ export const StompProvider = ({ children }) => {
 
   return (
     <StompContext.Provider
-      value={{ client: clientRef.current, connected, subscribe, sendMessage, rooms, setRooms }}
+      value={{ client: clientRef.current, connected, subscribe, sendMessage, rooms, setRooms, sessionId, updateSessionId }}
     >
       {children}
     </StompContext.Provider>

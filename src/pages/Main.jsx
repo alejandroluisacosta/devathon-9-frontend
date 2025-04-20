@@ -9,7 +9,7 @@ import { useJoinDuel } from '../utils/useJoinDuel';
 export const Main = () => {
   const [playerName, setPlayerName] = useState('');
   const [selectedHouse, setSelectedHouse] = useState('');
-  const { subscribe, sendMessage } = useStomp();
+  const { subscribe, sendMessage, sessionId, updateSessionId } = useStomp();
   const [isPlayerInfoLoaded, setIsPlayerInfoLoaded] = useState(false);
   const [showRules, setShowRules] = useState(false);
   const { joinDuel } = useJoinDuel();
@@ -28,6 +28,18 @@ export const Main = () => {
       setIsPlayerInfoLoaded(true);
     }
   }, []);
+
+  useEffect(() => {
+    const sub = subscribe('/user/queue/register-user', msg => {
+      const { sessionId } = JSON.parse(msg.body);
+      updateSessionId(sessionId);
+      console.log('✅ Session ID set:', sessionId);
+    });
+  
+    return () => {
+      sub?.unsubscribe();
+    };
+  }, [subscribe, updateSessionId]);
 
   useEffect(() => {
     const sub = subscribe('/user/queue/list-players', msg => {
@@ -69,11 +81,12 @@ export const Main = () => {
 
   const handleConfirm = async () => {
     const playerData = {
-      sessionId: generateFakeSessionId(),
+      sessionId: sessionId,
       name: playerName,
       house: selectedHouse,
     };
-    registerUser(playerData, sendMessage);
+
+    registerUser(playerData, sendMessage, subscribe, updateSessionId, sessionId);
 
     localStorage.setItem('playerInfo', JSON.stringify({ ...playerData }));
 

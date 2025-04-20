@@ -54,7 +54,7 @@ export const DuelRoom = () => {
     round: 0,
     gameOver: false,
     result: null,
-    players: []
+    players: [],
   });
 
   const [zones, setZones] = useState({
