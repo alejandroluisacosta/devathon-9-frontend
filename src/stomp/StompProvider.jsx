@@ -15,7 +15,7 @@ export const StompProvider = ({ children }) => {
     { name: 'Aula de Defensa Contra las Artes Oscuras' },
   ]);
 
-  const updateSessionId = (newSessionId) => {
+  const updateSessionId = newSessionId => {
     setSessionId(newSessionId);
     console.log('Session ID updated in context:', newSessionId);
   };
@@ -57,7 +57,16 @@ export const StompProvider = ({ children }) => {
 
   return (
     <StompContext.Provider
-      value={{ client: clientRef.current, connected, subscribe, sendMessage, rooms, setRooms, sessionId, updateSessionId }}
+      value={{
+        client: clientRef.current,
+        connected,
+        subscribe,
+        sendMessage,
+        rooms,
+        setRooms,
+        sessionId,
+        updateSessionId,
+      }}
     >
       {children}
     </StompContext.Provider>

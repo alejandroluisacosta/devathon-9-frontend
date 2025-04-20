@@ -14,10 +14,6 @@ export const Main = () => {
   const [showRules, setShowRules] = useState(false);
   const { joinDuel } = useJoinDuel();
 
-  const generateFakeSessionId = () => {
-    return 'fake-session-' + Math.random().toString(36).substr(2, 9);
-  };
-
   useEffect(() => {
     const storedPlayer = localStorage.getItem('playerInfo');
 
@@ -35,7 +31,7 @@ export const Main = () => {
       updateSessionId(sessionId);
       console.log('✅ Session ID set:', sessionId);
     });
-  
+
     return () => {
       sub?.unsubscribe();
     };
