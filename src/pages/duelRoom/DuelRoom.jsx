@@ -7,7 +7,7 @@ import { useStomp } from '../../utils/useStomp';
 
 const cards = [
   { id: 'Expelliarmus', image: '/images/Expelliarmus.webp' },
-  { id: 'Avada Kedavra', image: '/images/Avada_Kedavra.webp' },
+  { id: 'Avada Kedavra', image: '/images/Avada Kedavra.webp' },
   { id: 'Protego', image: '/images/Protego.webp' },
 ];
 
@@ -48,8 +48,9 @@ const DropZone = ({ id, children }) => {
 
 export const DuelRoom = () => {
   const { roomId } = useParams();
-  const { sendMessage, subscribe } = useStomp();
+  const { sendMessage, subscribe  } = useStomp();
   const [spells, setSpells] = useState([]);
+  
 
   const [zones, setZones] = useState({
     userZone: null,
@@ -96,17 +97,17 @@ export const DuelRoom = () => {
 
   const handleDragEnd = event => {
     const { over, active } = event;
-  
+
     if (over) {
       setZones(prev => ({
         ...prev,
         [over.id]: active.id,
       }));
-  
+
       subscribe(`/user/queue/round/result`, message => {
         console.log('Message received:', message.body);
       });
-  
+
       const spell = spells.find(spell => spell.name === active.id);
       console.log('Spell ID:', spell.id);
       if (spell) {
@@ -114,7 +115,6 @@ export const DuelRoom = () => {
       }
     }
   };
-  
 
   return (
     <div className='container'>
