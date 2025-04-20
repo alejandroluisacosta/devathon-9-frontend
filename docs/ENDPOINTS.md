@@ -73,6 +73,9 @@ Canal para recibir errores personalizados relacionados con la sesión, validacio
 - `ROOM_FULL`: "The room is already full"
 - `TOKEN_INVALID`: "Invalid or expired Token: <mensaje de error>"
 - `SESSION_NOT_FOUND`: "The original session doesn’t exist."
+- `PLAYER_IN_ROOM`: "You are already in the room"
+- `PLAYER_IS_WAITING`: "You are already waiting"
+- `PLAYER_IS_FIGHTING`: "You are already fighting"
 - **Formato de respuesta:**
 
 ```json
@@ -125,13 +128,19 @@ Devuelve la confirmación de registro de usuario tras enviar los datos a `/app/r
 
 **Descripción:**
 
-Recibes el `room_id` cuando se te asigna una sala de duelo con otro jugador (solicitado previamente desde `/app/duel`).
+Recibes el `room_id` más la información de tu `oponent` cuando se te asigna una sala de duelo (solicitado previamente desde `/app/duel`).
 
 **Formato de respuesta:**
 
 ```json
 {
-  "room_id": "12312313-123123-123-123123"
+  "room_id": "12312313-123123-123-123123",
+  "oponent": {
+    "sessionId": "60c44dac-4410-285e-b03b-df154007556a",
+    "name": "player",
+    "house": "house",
+    "sessionStatus": "FIGHTING"
+  }
 }
 ```
 
