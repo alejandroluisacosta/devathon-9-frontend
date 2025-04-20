@@ -48,9 +48,14 @@ const DropZone = ({ id, children }) => {
 
 export const DuelRoom = () => {
   const { roomId } = useParams();
-  const { sendMessage, subscribe  } = useStomp();
+  const { sendMessage, subscribe } = useStomp();
   const [spells, setSpells] = useState([]);
-  
+  const [gameData, setGameData] = useState({
+    round: 0,
+    gameOver: false,
+    result: null,
+    players: []
+  });
 
   const [zones, setZones] = useState({
     userZone: null,
@@ -104,10 +109,6 @@ export const DuelRoom = () => {
         [over.id]: active.id,
       }));
 
-      subscribe(`/user/queue/round/result`, message => {
-        console.log('Message received:', message.body);
-      });
-
       const spell = spells.find(spell => spell.name === active.id);
       console.log('Spell ID:', spell.id);
       if (spell) {
@@ -115,6 +116,25 @@ export const DuelRoom = () => {
       }
     }
   };
+
+  useEffect(() => {
+    // Subscribe to receive messages from the backend when the component mounts
+    const messageHandler = message => {
+      console.log('Message received:', message.body);
+      setGameData(JSON.parse(message.body));
+    };
+
+    subscribe(`/user/queue/round/result`, messageHandler);
+
+    // Cleanup subscription on unmount
+    return () => {
+      // Unsubscribe if necessary
+    };
+  }, [subscribe]);
+
+  useEffect(() => {
+    console.log('Updated game data:', gameData);
+  }, [gameData]);
 
   return (
     <div className='container'>
