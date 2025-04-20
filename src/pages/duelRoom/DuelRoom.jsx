@@ -2,6 +2,8 @@ import './DuelRoom.scss';
 import { DndContext, useDraggable, useDroppable } from '@dnd-kit/core';
 import { useState, useRef, useEffect } from 'react';
 import FlipClock from '../../components/flipClock/FlipClock';
+import { useParams } from 'react-router-dom';
+import { useStomp } from '../../utils/useStomp';
 
 const cards = [
   { id: 'Expelliarmus', image: '/images/Expelliarmus.webp' },
@@ -45,6 +47,8 @@ const DropZone = ({ id, children }) => {
 };
 
 export const DuelRoom = () => {
+  const { roomId } = useParams();
+  const { sendMessage, subscribe } = useStomp();
   const [zones, setZones] = useState({
     userZone: null,
     rivalZone: null,
@@ -59,6 +63,22 @@ export const DuelRoom = () => {
   const countdownTo = useRef(Date.now() + 30 * 1000);
   const [showModal, setShowModal] = useState(false);
   const [resultMessage, setResultMessage] = useState('');
+
+  // Fetch spells on component mount
+  useEffect(() => {
+    const fetchSpells = async () => {
+      try {
+        const response = await fetch('http://localhost:8080/spells');
+        const data = await response.json();
+        console.log(data);
+        setSpells(data);
+      } catch (error) {
+        console.error('Error fetching spells:', error);
+      }
+    };
+
+    fetchSpells();
+  }, []);
 
   const handleTimerComplete = () => {
     const userPlayedCard = zonesRef.current.userZone;
@@ -80,6 +100,8 @@ export const DuelRoom = () => {
         ...prev,
         [over.id]: active.id,
       }));
+
+      sendMessage(`/app/round/${roomId}`, { spell: active.id });
     }
   };
 
