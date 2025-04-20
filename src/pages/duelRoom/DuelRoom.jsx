@@ -2,7 +2,7 @@ import './DuelRoom.scss';
 import { DndContext, useDraggable, useDroppable } from '@dnd-kit/core';
 import { useState, useRef, useEffect } from 'react';
 import FlipClock from '../../components/flipClock/FlipClock';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { useStomp } from '../../utils/useStomp';
 
 const cards = [
@@ -71,7 +71,7 @@ export const DuelRoom = () => {
   const countdownTo = useRef(Date.now() + 30 * 1000);
   const [showModal, setShowModal] = useState(false);
   const [resultMessage, setResultMessage] = useState('');
-
+  const navigate = useNavigate();
   // Fetch spells on component mount
   useEffect(() => {
     const fetchSpells = async () => {
@@ -128,8 +128,19 @@ export const DuelRoom = () => {
   }, [subscribe, sessionId]);
 
   useEffect(() => {
-    console.log('Updated game data:', gameData);
+    if (gameData.gameOver) {
+      const isWinner = gameData.result?.winner === sessionId;
+      setResultMessage(isWinner ? '¡Felicidades, ganaste!' : 'Perdiste, serás por siempre olvidado');
+      setShowModal(true);
+    }
   }, [gameData]);
+
+  const handleModalClose = () => {
+    setShowModal(false);
+    if (gameData.gameOver) {
+      navigate('/');
+    }
+  };
 
   return (
     <div className='container'>
@@ -210,7 +221,7 @@ export const DuelRoom = () => {
                 obcaecati aspernatur nesciunt eveniet deleniti incidunt eum ea! Numquam, vel. Eius
                 ipsum, nisi sunt illum vero asperiores exercitationem quas.
               </p>
-              <button className='modal-content__button' onClick={() => setShowModal(false)}>
+              <button className='modal-content__button' onClick={handleModalClose}>
                 Regresar
               </button>
             </div>
