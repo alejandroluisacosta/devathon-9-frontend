@@ -142,7 +142,7 @@ Recibes el `room_id` cuando se te asigna una sala de duelo con otro jugador (sol
 **Descripción:**
 
 Devuelve el resultado de la ronda actual, incluyendo el número de ronda, los jugadores involucrados, el hechizo utilizado por cada uno y la cantidad de rondas ganadas por cada jugador.  
-El campo `gameOver` será `true` cuando alguno de los jugadores alcance tres victorias. 
+El campo `gameOver` será `true` cuando alguno de los jugadores alcance tres victorias.
 
 **Formato de respuesta:**
 
@@ -253,7 +253,7 @@ La ronda se resuelve automáticamente cuando ambos jugadores hayan enviado su he
 
 **Parámetros de ruta:**
 
-- `roomId` (UUID): Identificador de la sala en la que se está desarrollando la partida.  
+- `roomId` (UUID): Identificador de la sala en la que se está desarrollando la partida.
 
 **Body:**
 

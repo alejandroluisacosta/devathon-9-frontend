@@ -9,7 +9,7 @@ Este proyecto permite a los jugadores competir en duelos mágicos en tiempo real
 ## 🚀 Características
 
 - **Selección de casa**: Escoge entre las cuatro casas conocidos del mundo de Harry Potter.
-- **Hechizos**: Elige entre un catálogo de hechizos famosos, como *Expelliarmus*, *Avada Kedavra*, y *Protego*.
+- **Hechizos**: Elige entre un catálogo de hechizos famosos, como _Expelliarmus_, _Avada Kedavra_, y _Protego_.
 - **Gráficos interactivos**: Animaciones visuales de los hechizos y efectos mágicos (proximamente en sus mejores canales de red).
 - **Duelo por turnos**: Los jugadores se enfrentan por turnos, eligiendo hechizos y defensas.
 - **Sonidos y efectos**: Efectos de sonido para aumentar la inmersión en el juego (una vez confirmada con Sony productions).
@@ -24,7 +24,7 @@ Este proyecto permite a los jugadores competir en duelos mágicos en tiempo real
 
 1. **Iniciar el juego**: Al iniciar la aplicación, ingresar el nombre y luego podrás elegir entre las cuatro salas de la saga de Harry Potter.
 2. **Selecciona tu hechizo**: Durante tu turno, podrás seleccionar un hechizo para atacar o defenderte.
-4. **Gana el duelo**: El primer jugador en reducir la salud del oponente a cero será el ganador del duelo.
+3. **Gana el duelo**: El primer jugador en reducir la salud del oponente a cero será el ganador del duelo.
 
 ## 📦 Instalación
 
@@ -32,8 +32,8 @@ Para ejecutar este proyecto en tu máquina local, sigue estos pasos:
 
 1. Clona este repositorio:
    ```bash
-   git clone https://github.com/alejandroluisacosta/devathon-9-frontend.git 
-
+   git clone https://github.com/alejandroluisacosta/devathon-9-frontend.git
+   ```
 
 ## Frontend
 
