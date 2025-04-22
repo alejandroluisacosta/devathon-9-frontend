@@ -5,11 +5,11 @@ import './flipclock.scss';
 export function FlipClock({ to, onComplete }) {
   return (
     <FlipClockCountdown
-        to={to}
+      to={to}
       renderMap={[false, false, false, true]}
       showSeparators={false}
-      labels={['', '', '', '']} 
-      className="flip-clock"
+      labels={['', '', '', '']}
+      className='flip-clock'
       hideOnComplete={false}
       onComplete={onComplete}
     />

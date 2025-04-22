@@ -3,7 +3,7 @@ import { Navigate, Route, Routes } from 'react-router-dom';
 import { StompProvider } from './stomp/StompProvider.jsx';
 import { Main } from './pages/Main';
 import { DuelRoom } from './pages/duelRoom/DuelRoom';
-import { RoomList } from './pages/roomList/RoomList';
+// import { RoomList } from './pages/roomList/RoomList';
 
 function App() {
   return (
