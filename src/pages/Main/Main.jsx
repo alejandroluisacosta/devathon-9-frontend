@@ -82,6 +82,15 @@ export const Main = () => {
       house: selectedHouse,
     };
 
+    if (playerName.trim().length < 3) {
+      alert('El nombre de mago debe tener al menos 3 caracteres.');
+      return;
+    }
+    if (!selectedHouse) {
+      alert('Por favor elige una casa.');
+      return;
+    }
+
     registerUser(playerData, sendMessage, subscribe, updateSessionId, sessionId);
 
     localStorage.setItem('playerInfo', JSON.stringify({ ...playerData }));
