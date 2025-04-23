@@ -13,6 +13,8 @@ export const Main = () => {
   const [isPlayerInfoLoaded, setIsPlayerInfoLoaded] = useState(false);
   const [showRules, setShowRules] = useState(false);
   const { joinDuel } = useJoinDuel();
+  const [errorMessage, setErrorMessage] = useState('');
+
 
   useEffect(() => {
     const storedPlayer = localStorage.getItem('playerInfo');
@@ -83,13 +85,15 @@ export const Main = () => {
     };
 
     if (playerName.trim().length < 3) {
-      alert('El nombre de mago debe tener al menos 3 caracteres.');
+      setErrorMessage('El nombre de mago debe tener al menos 3 caracteres.');
       return;
     }
     if (!selectedHouse) {
-      alert('Por favor elige una casa.');
+      setErrorMessage('Por favor elige una casa.');
       return;
     }
+    setErrorMessage('');
+    
 
     registerUser(playerData, sendMessage, subscribe, updateSessionId, sessionId);
 
@@ -155,6 +159,9 @@ export const Main = () => {
             ))}
           </div>
         </div>
+      )}
+      {errorMessage && (
+        <p className="main-page__error-message">{errorMessage}</p>
       )}
       <button
         className='main-page__button relative-element'
