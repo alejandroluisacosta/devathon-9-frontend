@@ -46,24 +46,6 @@
         right: 10px;
         cursor: pointer;
     }
-    &__title {
-        font-size: 18px;
-        margin-bottom: 15px;
-    }
-    &__rules-label {
-        font-family: 'Xefora', 'sans-serif';
-        margin-bottom: 10px;
-    }
-    &__instructions {
-        width: 100%;
-    }
-    &__close-button {
-        background-color: #bb4c48;
-        color: white;
-        font-size: 18px;
-        border-radius: 8px;
-        padding: 5px 20px;
-    }
   }
 }
 
@@ -71,6 +53,7 @@
   .rules {
     width: 50%;
     top: 50px;
+    padding: 40px 20px;
     &__instructions {
       max-width: 350px;
     }
