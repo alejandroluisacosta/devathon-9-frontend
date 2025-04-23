@@ -135,7 +135,7 @@ export const DuelRoom = () => {
       );
       setShowModal(true);
     }
-  }, [gameData]);
+  }, [gameData, sessionId]);
 
   const handleModalClose = () => {
     setShowModal(false);
