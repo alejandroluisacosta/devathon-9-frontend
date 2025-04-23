@@ -116,12 +116,12 @@ export const DuelRoom = () => {
     const sub = subscribe(`/user/queue/round/result`, message => {
       const data = JSON.parse(message.body);
       setGameData(data);
-  
+
       const isWinner = data.result?.winner === sessionId;
       setResultMessage(isWinner ? '¡Ganaste!' : 'Perdiste');
       setShowModal(true);
     });
-  
+
     return () => {
       sub?.unsubscribe();
     };
@@ -130,7 +130,9 @@ export const DuelRoom = () => {
   useEffect(() => {
     if (gameData.gameOver) {
       const isWinner = gameData.result?.winner === sessionId;
-      setResultMessage(isWinner ? '¡Felicidades, ganaste!' : 'Perdiste, serás por siempre olvidado');
+      setResultMessage(
+        isWinner ? '¡Felicidades, ganaste!' : 'Perdiste, serás por siempre olvidado'
+      );
       setShowModal(true);
     }
   }, [gameData]);
