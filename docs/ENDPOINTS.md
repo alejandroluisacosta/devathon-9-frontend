@@ -76,6 +76,10 @@ Canal para recibir errores personalizados relacionados con la sesión, validacio
 - `PLAYER_IN_ROOM`: "You are already in the room"
 - `PLAYER_IS_WAITING`: "You are already waiting"
 - `PLAYER_IS_FIGHTING`: "You are already fighting"
+- `ROOM_NOT_FOUND`: "Room not found"
+- `PLAYER_NOT_FOUND`: "Player not found in this room"
+- `SPELL_NOT_FOUND`: "Spell not found"
+- `SPELL_ALREADY_SENT`: "You already cast a spell this round"
 - **Formato de respuesta:**
 
 ```json
