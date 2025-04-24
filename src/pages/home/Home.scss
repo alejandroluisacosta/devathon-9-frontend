@@ -1,0 +1,91 @@
+.container-home {
+    background: url('/images/Home.webp'); 
+    min-height: 100vh;
+    width: 100vw;
+    background-size: cover;
+    background-repeat: no-repeat;  
+    background-position: center;  
+    background-attachment: fixed;
+}
+.profile-page {
+    margin: auto;
+    padding: 60px 5%;
+    text-align: center;
+    max-width: 1200px;
+    color: white;
+    &__title {
+        font-size: 48px;
+        text-shadow: 4px 10px 8px rgba(0, 0, 0, 1);
+        margin-bottom: 40px;
+    }
+    &__container-info{
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        place-items: center;
+        align-items: start;
+        margin: 100px 0;
+    }
+    & section{
+        background-color: #adadadc8;
+        font-size: 20px;
+        color: #000;
+        display: flex;
+        flex-direction: column;
+        justify-content: start;
+        align-items: center;
+        min-width: 300px;
+        padding: 40px 20px;
+        border: 2px solid #000;
+        box-shadow: 0px 0px 5px rgb(12, 12, 12);
+        border-radius: 5px;
+        gap: 5px;
+
+        & p, strong {
+            font-family: 'Aclonica', sans-serif;
+            font-size: 18px;
+            margin: 0;
+        }
+        & h2 {
+            margin-bottom: 8px;
+            text-shadow: 1px 1px 2px rgba(37, 34, 34, 0.7);
+        }    
+    }
+
+    &__button {
+        display: inline-block;
+        text-decoration: none;
+        color: white;
+        padding: 8px 16px;
+        border-radius: 8px;
+        border: 2px solid #BB4C48;
+        font-family: 'Aclonica', sans-serif;
+        font-size: 16px;
+        cursor: pointer;
+        transition: all 0.3s ease-in-out;
+        margin: 20px;
+        background-color: #BB4C48;
+
+        &.secondary {
+            background-color: transparent;
+            backdrop-filter: blur(10px);
+            &:hover {
+                transform: scale(1.1) !important;
+                transition: all 0.3s ease-in-out;
+            }
+        }
+        &:hover {
+            transform: scale(1.1);
+            transition: all 0.3s ease-in-out;
+        }
+    }
+}
+
+@media (max-width: 768px) {
+    .profile-page__container-info{
+        grid-template-columns: (1fr);
+        gap: 20px;
+    }
+    .profile-page__button {
+        margin: 10px;
+    }
+}
