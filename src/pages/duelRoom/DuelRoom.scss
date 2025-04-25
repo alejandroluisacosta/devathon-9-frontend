@@ -1,0 +1,230 @@
+.container-room {
+  background: url("/images/DuelRoom_Background.webp");
+  background-size: cover;
+  background-repeat: no-repeat;  
+  background-position: center;
+  display: block;
+  margin: auto;
+  overflow: hidden;  
+  width: 100vw;
+  height: 100vh;
+}
+.duel-page {
+  max-width: 1200px;
+  margin: auto;
+  display: grid;
+  grid-template-areas: "info duel buttons";
+  grid-template-columns:1fr 5fr 1fr;
+  
+  &__buttons{
+      grid-area: buttons;
+      height: 100vh;
+      color: #222;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      align-items: center;
+      padding: 20px;
+
+      .container-rules {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        gap: 40px;
+      }
+
+      &__rules {
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          font-size: 24px;
+          color: #fff;
+          background-color: rgba(0, 0, 0, 0.887);
+          border: 2px solid #7F0909;
+          box-shadow: 0px 0px 10px rgba(255, 0, 1);
+          border-radius: 100px;
+          padding: 8px;
+          cursor: pointer;
+      }
+      [popover]{
+          width: 300px;
+          padding: 10px;
+          border: 2px solid #7F0909;
+          border-radius: 5px;
+          text-align: center;
+      }
+      [popover]:popover-open {
+          top: -30%;
+          right: -50vw;
+          font-family: 'Aclonica', sans-serif;
+          color: #fff;
+          background-color: rgba(0, 0, 0, 0.887);
+          box-shadow: 0px 0px 10px rgba(255, 0, 1);
+      }
+        .green {
+        color: #51d6519f;
+        } 
+        .red {
+            color: #ef0d0dee;
+        }
+        .blue {
+            color: #074df3;
+        }
+        .icon-instructions {
+            width: 100px;
+        }
+  }
+  &__players-info {
+      grid-area: info;
+      background-color: #adadadc8;
+      font-size: 16px;
+      height: fit-content;
+      color: #000;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-around;
+      align-items: center;
+      text-align: center;
+      margin: 10px 0 0 10px;
+      padding: 10px;
+      border: 2px solid #000;
+      box-shadow: 0px 0px 5px rgb(12, 12, 12);
+      border-radius: 5px;
+      gap: 10px;
+      & h2{
+          margin: 0;
+          text-shadow: 1px 1px 2px rgba(37, 34, 34, 0.7);
+      }
+      & p {
+          font-family: 'Aclonica', sans-serif;
+          font-size: 14px;
+          margin: 4px;
+      }
+  }
+  
+  &__zones{
+      grid-area: duel;
+      height: 100vh;
+      display: grid;
+      justify-items: center;
+      align-content: space-around;
+      grid-template-rows: 1fr 1fr 1fr;
+      
+      &__timer {
+          display: flex;
+          justify-content: center;
+          align-items: end;
+          width: 200px;
+          height: 150px;
+          background: url(https://img.freepik.com/foto-gratis/fondo-madera_24972-623.jpg?semt=ais_hybrid&w=740);
+          background-size: cover;
+          background-repeat: no-repeat;  
+          border-radius: 10px;
+      }
+      &__drop-zone {
+          display: flex;
+          flex-direction: row;
+          justify-content: space-between;
+          align-items: center;
+          gap: 20px;
+          & h2 {
+              font-size: 46px;
+              font-weight: bold;
+              color: #fff;
+              text-shadow: 4px 6px 6px rgba(0, 0, 0, 1);
+          }
+          & p, strong {
+              font-size: 30px;
+              font-weight: bold;
+              color: #fff;
+              text-shadow: 4px 6px 6px rgba(0, 0, 0, 1);
+          }
+          & img {
+              width: 100%;
+              height: 100%;
+          }
+      }
+
+      &__cards {
+          display: flex;
+          align-items: end;
+          gap: 8px;
+      }
+      &__rival{
+          width: 130px;
+          height: 180px;
+          border-radius: 5px;
+          box-shadow: 0 0 7px rgba(252, 252, 252, 0.5);
+          transform: rotate(190deg) translate(0, 30px);
+      }
+  }
+  &__button {
+      text-decoration: none;
+      background-color: #BB4C48;
+      color: white;
+      font-family: 'Aclonica', sans-serif;
+      padding: 10px 20px;
+      border-radius: 8px;
+      border: none;
+      font-size: 18px;
+      cursor: pointer;
+      transition: all 0.3s ease-in-out;
+  }
+  &__button:hover {
+      transform: scale(1.1);
+      transition: all 0.3s ease-in-out;
+  }
+  @media (max-width: 1366px) {
+      .card {
+          width: 120px;
+          height: 170px;
+      }
+      .dropzone {
+          width: 120px;
+          height: 170px;
+      }
+      .duel-page__zones__rival {
+              width: 110px;
+              height: 160px;
+      }
+  }
+  @media (max-width: 768px) {
+      .dropzone {
+          width: 100px;
+          height: 150px;
+      }
+      .duel-page__players-info {
+          & h2 {
+              font-size: 16px;
+          }
+          & p {
+              font-size: 12px;
+          }
+      }
+      .duel-page__zones__timer {
+          width: 100px;
+          height: 100px;
+      }
+      .duel-page__zones__drop-zone {
+          & h2, p {
+              font-size: 24px;
+          }
+      }
+      .duel-page__zones__rival {
+              width: 90px;
+              height: 130px;
+      }
+      .duel-page__button {
+          font-size: 12px;
+          padding: 6px 12px;
+          border-radius: 3px;
+      }
+      .icon-instructions {
+          width: 80px;
+      }
+  }
+  @media (max-width: 600px) {
+  }
+}
+

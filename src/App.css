@@ -1,0 +1,77 @@
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+}
+
+body,
+button {
+  font-family: 'Xefora', sans-serif;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  margin: 0;
+}
+
+@font-face {
+  font-family: 'Aclonica';
+  src: url('/fonts/Aclonica.woff') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Xefora';
+  src: url('/fonts/Xefora.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+.fade-out {
+  opacity: 0;
+  transform: translateY(-10px);
+  transition:
+    opacity 0.5s ease,
+    transform 0.5s ease;
+}
+
+.fade-in {
+  opacity: 0;
+  transform: translateY(10px);
+  animation: fadeIn 0.5s ease forwards;
+}
+
+.relative-element {
+  position: relative;
+  z-index: 1;
+}
+
+@keyframes fadeIn {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.modal-fade-in {
+  opacity: 0;
+  animation: modalFadeIn 0.5s ease forwards;
+}
+
+@keyframes modalFadeIn {
+  from {
+    opacity: 0;
+    transform: translate(-50%, 10px);
+  }
+  to {
+    opacity: 1;
+    transform: translate(-50%, 0);
+  }
+}

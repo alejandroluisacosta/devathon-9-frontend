@@ -1,0 +1,30 @@
+.card {
+    width: 150px;
+    height: 200px;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+    box-shadow: 0 0 3px rgba(252, 252, 252, 0.5);
+    transition: all 0.3s ease, transform 0.2s ease;
+
+}
+.card:active {
+    scale: 1.1;
+    z-index: 10;
+}
+.card:nth-child(1){
+    transform: rotate(-10deg) translate(0, 20px);
+}
+.card:nth-child(3){
+    transform: rotate(10deg) translate(0, 20px);
+}    
+.card:hover {
+transform: translate(0, -30px);
+scale: 1.1;
+box-shadow: 0 0 15px 5px rgba(255, 255, 255, 0.6);
+}
+@media (max-width: 768px) {
+    .card {
+        width: 100px;
+        height: 150px;
+    }
+}
