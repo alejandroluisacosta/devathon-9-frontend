@@ -1,7 +1,7 @@
 import './App.css';
 import { Navigate, Route, Routes } from 'react-router-dom';
 import { StompProvider } from './stomp/StompProvider.jsx';
-import { Main } from './pages/Main/Main.jsx';
+import { Main } from './pages/main/Main.jsx';
 import { DuelRoom } from './pages/duelRoom/DuelRoom';
 import { Home } from './pages/home/Home';
 // import { RoomList } from './pages/roomList/RoomList';

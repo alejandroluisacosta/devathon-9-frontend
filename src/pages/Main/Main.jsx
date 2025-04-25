@@ -75,6 +75,7 @@ export const Main = () => {
   const handleHouseSelect = house => setSelectedHouse(house);
 
   const redirectToRoomList = () => {
+
     setWaitingRival(true);
     joinDuel();
   };
@@ -127,6 +128,7 @@ export const Main = () => {
 
   return (
     <div className={`main-page ${isPlayerInfoLoaded ? 'with-background' : ''}`}>
+
       <WaitingModal visible={waitingRival} />
 
       <img
