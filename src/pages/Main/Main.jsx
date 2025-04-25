@@ -14,6 +14,8 @@ export const Main = () => {
   const [showRules, setShowRules] = useState(false);
   const { joinDuel } = useJoinDuel();
   const [errorMessage, setErrorMessage] = useState('');
+  const [waitingRival, setWaitingRival] = useState(false);
+
 
   useEffect(() => {
     const storedPlayer = localStorage.getItem('playerInfo');
@@ -73,7 +75,30 @@ export const Main = () => {
   const handleHouseSelect = house => setSelectedHouse(house);
 
   const redirectToRoomList = () => {
+    setWaitingRival(true);
     joinDuel();
+  };
+
+  useEffect(() => {
+    if (waitingRival) {
+      const timer = setTimeout(() => {
+        setWaitingRival(false);
+      }, 10000);
+  
+      return () => clearTimeout(timer); 
+    }
+  }, [waitingRival]);
+
+  const WaitingModal = ({ visible }) => {
+    if (!visible) return null;
+  
+    return (
+      <div className="modal">
+        <div className="modal-content">
+          <h2>Esperando jugador...</h2>
+        </div>
+      </div>
+    );
   };
 
   const handleConfirm = async () => {
@@ -102,6 +127,8 @@ export const Main = () => {
 
   return (
     <div className={`main-page ${isPlayerInfoLoaded ? 'with-background' : ''}`}>
+      <WaitingModal visible={waitingRival} />
+
       <img
         className='main-page__rules-icon relative-element'
         src='/images/Book.svg'
