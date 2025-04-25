@@ -99,6 +99,17 @@
     cursor: pointer;
     transition: all 0.3s ease-in-out;
   }
+  &__error-message {
+    font-size: 14px;
+    margin-top: 10px;
+    font-family: 'Aclonica', 'sans-serif';
+    background-color: #bb4c48;
+    color: white;
+    padding: 12px 18px;
+    max-width: 470px;
+    border-radius: 8px;
+    margin: 0 auto 15px;
+  }
 }
 
 @media only screen and (min-width: 1000px) {
