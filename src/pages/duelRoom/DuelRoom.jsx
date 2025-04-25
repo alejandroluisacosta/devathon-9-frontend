@@ -1,6 +1,6 @@
 import './DuelRoom.scss';
 import { DndContext, useDroppable } from '@dnd-kit/core';
-import { useState, useRef, useEffect } from 'react';
+import { useState, useRef, useEffect, useMemo } from 'react';
 import { usePageReady } from '../../customHooks/usePageImagesLoaded';
 import { useNavigate, useParams, NavLink } from 'react-router-dom';
 import { useStomp } from '../../utils/useStomp';
@@ -11,9 +11,9 @@ import DropZone from '../../components/dropZone/DropZone';
 import ResultModal from '../../components/resultModal/ResultModal';
 
 const cards = [
-  { id: 'Expelliarmus', image: '/images/Expelliarmus.webp' },
   { id: 'Avada Kedavra', image: '/images/Avada Kedavra.webp' },
   { id: 'Protego', image: '/images/Protego.webp' },
+  { id: 'Expelliarmus', image: '/images/Expelliarmus.webp' },
 ];
 
 
@@ -53,21 +53,51 @@ export const DuelRoom = () => {
   const [isUserZoneEnabled, setIsUserZoneEnabled] = useState(true);
   const [rivalCard, setRivalCard] = useState(null);
   const user = JSON.parse(localStorage.getItem('playerInfo'));
+  const [opponent, setOpponent] = useState({
+    name: '',
+    house: ''
+  });
 
-  const players = [
-        {
-            label: 'Jugador (Tú)',
-            name: `${user.name}`,
-            house: `${user.house}`,
-            score: userLivesLoss
-        },
-        {
-            label: 'Oponente',
-            name: 'Harry Potter',
-            house: 'Gryffindor',
-            score: rivalLivesLoss
+  const players = useMemo(() => [
+    {
+      label: 'Jugador (Tú)',
+      name: user.name,
+      house: user.house,
+      score: userLivesLoss
+    },
+    {
+      label: 'Oponente',
+      name: opponent.name || 'Desconocido',
+      house: opponent.house || '---',
+      score: rivalLivesLoss
+    }
+  ], [user, opponent, userLivesLoss, rivalLivesLoss]);
+
+    useEffect(() => {
+      const sub = subscribe('/user/queue/duel', (msg) => {
+        const data = JSON.parse(msg.body);
+    
+        if (data.oponent) {
+          setOpponent({
+            name: data.oponent.name,
+            house: data.oponent.house
+          });
+    
+          console.log("Nombre del oponente:", data.oponent.name);
+          console.log("Casa del oponente:", data.oponent.house);
+        } else {
+          console.log("No se encontró información del oponente aún.");
         }
-    ];
+      });
+    
+      return () => {
+        sub?.unsubscribe();
+      };
+    }, [subscribe]);
+
+    useEffect(() => {
+      console.log("✅ Opponent actualizado:", opponent);
+    }, [opponent]);
 
   // Fetch spells on component mount
   useEffect(() => {
@@ -125,11 +155,7 @@ export const DuelRoom = () => {
       console.log("El hechizo usado por el oponente es:", opponentSpell);
       setIsUserZoneEnabled(false);
       setRivalCard(opponentSpell.name);
-      // if (opponentSpell) {
-      //   console.log("El oponente usó:", opponentSpell.name);
-      // } else {
-      //   console.warn("No se encontró el hechizo usado por el oponente.");
-      // }      
+
 
       const isDraw = data.result?.status === "DRAW";
       if (!isDraw) {
@@ -165,6 +191,15 @@ export const DuelRoom = () => {
     }
   }, [gameData]);
 
+
+    const handleLeave = () => {
+        const playerInfo = JSON.parse(localStorage.getItem("playerInfo")) || {};
+        playerInfo.losses = (playerInfo.losses || 0) + 1;
+        localStorage.setItem("playerInfo", JSON.stringify(playerInfo));
+
+        navigate("/home");
+    };
+
   const handleModalClose = () => {
     setShowModal(false);
     if (gameData.gameOver) {
@@ -185,7 +220,8 @@ export const DuelRoom = () => {
     }}>
     <div className="duel-page">
                 <div className='duel-page__players-info'>
-                    <div>
+                    {opponent && (
+                      <div>
                         {players.map((player, index) => (
                         <div key={index}>
                             <h2>{player.label}</h2>
@@ -202,6 +238,7 @@ export const DuelRoom = () => {
                         </div>
                         ))}
                     </div>
+                    )}
                 </div>
                 <DndContext onDragEnd={handleDragEnd}>
                     <main className="duel-page__zones">
@@ -209,7 +246,7 @@ export const DuelRoom = () => {
                             {[1, 2, 3].map((_, i) => (
                             <img
                                 key={i}
-                                src="/images/Card-reverse.webp"
+                                src="/images/Card-reverse-alternative.webp"
                                 alt="Card rival"
                                 className="duel-page__zones__rival"
                             />
@@ -221,7 +258,7 @@ export const DuelRoom = () => {
                             {zones.userZone ? (
                                 <img src={`/images/${zones.userZone}.webp`} alt={zones.userZone} />
                             ) : (
-                                <p className="duel-page__zones__placeholder">Suelta tu carta aquí</p>
+                                <p className="duel-page__zones__placeholder">Arrastra tu carta aquí</p>
                             )}
                             </DropZone>
                             <div className='duel-page__zones__timer'>
@@ -243,13 +280,16 @@ export const DuelRoom = () => {
                     </main>
                 </DndContext>
                 <div className='duel-page__buttons'>
+                  <div className='container-rules'>
                     <button className='duel-page__buttons__rules' popoverTarget="message" popoverTargetAction="toggle">
                         <img src="/images/Book.svg" alt="Reglas" />
                     </button>
                     <div id="message" popover='auto'>
                         <h1 className='rules__rules-label'>Reglas</h1>
-                        <p className='rules__written-instructions'>Tres rondas deciden el destino. Quien conquiste dos, verá su nombre grabado en los pergaminos dorados de Hogwarts. Quien pierda... no dejará ni eco en los pasillos encantados.</p>
+                        <p className='rules__written-instructions'>Expelliarmicus es un juego en el que dos jugadores eligen simultáneamente entre tres opciones:                           <span className='green'>Avada Kedavra</span>, <span className='blue'>Protego</span> o <span className='red'>Expelliarmus</span>. <span className='green'>Avada Kedavra</span> vence a <span className='blue'>Protego</span>, <span className='blue'>Protego</span> vence a <span className='red'>Expelliarmus</span> y <span className='red'>Expelliarmus</span> vence a <span className='green'>Avada Kedavra</span>. Si ambos jugadores eligen la misma opción, hay un empate. El objetivo es vencer al oponente eligiendo la opción que le gana según esta relación cíclica.</p>
                     </div>
+                    <img src="/images/Instructions-duel.webp" alt="Instrucciones" className="icon-instructions"/>
+                  </div>
                     <button className='duel-page__button' onClick={() => setShowLeaveConfirm(true)}>
                         Abandonar
                     </button>
@@ -266,19 +306,12 @@ export const DuelRoom = () => {
                         >
                         Continuar Duelo
                         </button>
-                        <NavLink
-                        to="/home"
+                        <button
                         className="modal-content__button secondary"
-                        onClick={() => {
-                            setShowLeaveConfirm(false)
-                            const playerInfo = JSON.parse(localStorage.getItem("playerInfo")) || {};
-                            playerInfo.losses = (playerInfo.losses || 0) + 1;
-                            localStorage.setItem("playerInfo", JSON.stringify(playerInfo));
-                        }
-                        }
+                        onClick={handleLeave}
                         >
                         Abandonar
-                        </NavLink>
+                        </button>
                     </div>
                     </div>
                 </div>
@@ -319,15 +352,6 @@ export const DuelRoom = () => {
                 <div className="modal-overlay">
                     <div className="modal-content">
                     <h2>{finalResultMessage}</h2>
-                    <button className='modal-content__button' onClick={() => {
-                        setUserLivesLoss(0);
-                        setRivalLivesLoss(0);
-                        setZones({ userZone: null, rivalZone: null });
-                        countdownTo.current = Date.now() + 40 * 1000;
-                        setShowFinalResult(false);
-                    }}>
-                    Revancha
-                </button>
                 <NavLink to='/home' className='modal-content__button secondary'> Volver al perfil</NavLink>
                 </div>
             </div>

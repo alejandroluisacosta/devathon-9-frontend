@@ -14,7 +14,7 @@ function App() {
       <Routes>
         <Route path="/" element={!user ? <Main /> : <Navigate to="/home" />} />
         <Route path="/duel-room/:roomId" element={<DuelRoom />} />
-        <Route path="/home" element={user ? <Home /> : <Navigate to="/" />} />
+        <Route path="/home" element={<Home />} />
         <Route path='/duel-room' element={<DuelRoom />} />
         {/* 
           <Route path="/create-room" element={<CreateRoom />} />
