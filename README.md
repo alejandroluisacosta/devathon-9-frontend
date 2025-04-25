@@ -26,6 +26,10 @@ Este proyecto permite a los jugadores competir en duelos mágicos en tiempo real
 2. **Selecciona tu hechizo**: Durante tu turno, podrás seleccionar un hechizo para atacar o defenderte.
 3. **Gana el duelo**: El primer jugador en reducir la salud del oponente a cero será el ganador del duelo.
 
+## 🧩 Flujo/Diseño de la aplicación
+
+[🖌️ Diseño en Figma](https://www.figma.com/design/oGe8qorVrrKxgy7sUFSJyd/Untitled?node-id=0-1&p=f&t=sLZshkQsOgBVtMJX-0)
+
 ## 📦 Instalación
 
 Para ejecutar este proyecto en tu máquina local, sigue estos pasos:
@@ -39,7 +43,7 @@ Para ejecutar este proyecto en tu máquina local, sigue estos pasos:
 
 [📄 STOMP WebSocket API](docs/STOMP.md)  
 [📄 STOMP para React](docs/STOMP-FOR-REACT.md)  
-[📄 Endpoints HTTP](docs/ENDPOINTS.md)
+[📄 Endpoints HTTP/Websocket](docs/ENDPOINTS.md)
 
 Clone repository into local machine
 

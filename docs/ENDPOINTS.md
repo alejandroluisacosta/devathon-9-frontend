@@ -263,6 +263,7 @@ Registra un nuevo usuario en el sistema. Responde por `/user/queue/register-user
 
 Envía el hechizo seleccionado por el jugador en una sala de juego y solicita el resultado de la ronda una vez que ambos jugadores hayan enviado su hechizo.  
 La ronda se resuelve automáticamente cuando ambos jugadores hayan enviado su hechizo.
+El hechizo será `null` en caso de que el jugador no realice su movimiento en la ronda.
 
 **Parámetros de ruta:**
 
@@ -272,7 +273,7 @@ La ronda se resuelve automáticamente cuando ambos jugadores hayan enviado su he
 
 ```json
 {
-  "spellId": "c55467de-5c51-4c7c-87f6-ae3d1bd3c506"
+  "spellId": "c55467de-5c51-4c7c-87f6-ae3d1bd3c506" | null
 }
 ```
 
