@@ -1,10 +1,10 @@
 import { useState, useEffect } from 'react';
 import './Main.scss';
-import { PlayerBasicInfo } from '../components/playerBasicInfo/PlayerBasicInfo';
-import { Rules } from '../components/rules/Rules';
-import { registerUser } from '../utils/registerUser';
-import { useStomp } from '../utils/useStomp';
-import { useJoinDuel } from '../utils/useJoinDuel';
+import { PlayerBasicInfo } from '../../components/playerBasicInfo/PlayerBasicInfo';
+import { Rules } from '../../components/rules/Rules';
+import { registerUser } from '../../utils/registerUser';
+import { useStomp } from '../../utils/useStomp';
+import { useJoinDuel } from '../../utils/useJoinDuel';
 
 export const Main = () => {
   const [playerName, setPlayerName] = useState('');
@@ -13,6 +13,7 @@ export const Main = () => {
   const [isPlayerInfoLoaded, setIsPlayerInfoLoaded] = useState(false);
   const [showRules, setShowRules] = useState(false);
   const { joinDuel } = useJoinDuel();
+  const [errorMessage, setErrorMessage] = useState('');
 
   useEffect(() => {
     const storedPlayer = localStorage.getItem('playerInfo');
@@ -82,6 +83,16 @@ export const Main = () => {
       house: selectedHouse,
     };
 
+    if (playerName.trim().length < 3) {
+      setErrorMessage('El nombre de mago debe tener al menos 3 caracteres.');
+      return;
+    }
+    if (!selectedHouse) {
+      setErrorMessage('Por favor elige una casa.');
+      return;
+    }
+    setErrorMessage('');
+
     registerUser(playerData, sendMessage, subscribe, updateSessionId, sessionId);
 
     localStorage.setItem('playerInfo', JSON.stringify({ ...playerData }));
@@ -146,6 +157,9 @@ export const Main = () => {
             ))}
           </div>
         </div>
+      )}
+      {errorMessage && (
+        <p className="main-page__error-message">{errorMessage}</p>
       )}
       <button
         className='main-page__button relative-element'
