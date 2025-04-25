@@ -23,13 +23,21 @@
       display: flex;
       flex-direction: column;
       justify-content: space-between;
-      align-items: end;
+      align-items: center;
       padding: 20px;
+
+      .container-rules {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        gap: 40px;
+      }
 
       &__rules {
           display: flex;
-          align-items: center;
           justify-content: center;
+          align-items: center;
           font-size: 24px;
           color: #fff;
           background-color: rgba(0, 0, 0, 0.887);
@@ -40,18 +48,32 @@
           cursor: pointer;
       }
       [popover]{
-          width: 200px;
+          width: 300px;
+          padding: 10px;
           border: 2px solid #7F0909;
           border-radius: 5px;
+          text-align: center;
       }
       [popover]:popover-open {
-          top: -50%;
+          top: -30%;
           right: -50vw;
           font-family: 'Aclonica', sans-serif;
           color: #fff;
           background-color: rgba(0, 0, 0, 0.887);
           box-shadow: 0px 0px 10px rgba(255, 0, 1);
       }
+        .green {
+        color: #51d6519f;
+        } 
+        .red {
+            color: #ef0d0dee;
+        }
+        .blue {
+            color: #074df3;
+        }
+        .icon-instructions {
+            width: 100px;
+        }
   }
   &__players-info {
       grid-area: info;
@@ -197,6 +219,9 @@
           font-size: 12px;
           padding: 6px 12px;
           border-radius: 3px;
+      }
+      .icon-instructions {
+          width: 80px;
       }
   }
   @media (max-width: 600px) {
