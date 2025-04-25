@@ -11,7 +11,7 @@ export const Rules = ({ closeModal }) => {
       <h1 className='rules__rules-label'>Reglas</h1>
       <img className='rules__instructions' src='/images/Instructions.webp' alt='Instructions' />
       <p className='rules__written-instructions'>
-        Tres rondas deciden el destino. Quien conquiste dos, verá su nombre grabado en los
+        Quien conquiste tres rondas, verá su nombre grabado en los
         pergaminos dorados de Hogwarts. Quien pierda... no dejará ni eco en los pasillos encantados.
       </p>
       <button className='rules__close-button' onClick={closeModal}>
